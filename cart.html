@@ -1,87 +1,169 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سلة المشتريات | ELBNA STORE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #050505; color: white; min-height: 100vh; display: flex; flex-direction: column; }
-        .cart-card { background: #0a0a0a; border: 1px solid #1a1a1a; }
-        .btn-yellow { background: linear-gradient(90deg, #eab308, #ca8a04); color: black; }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KADRY — السلة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+*{font-family:'Cairo',sans-serif;box-sizing:border-box;}
+:root{
+  --navy:#0a0f2e;--navy2:#0d1540;--navy3:#111b52;--blue:#1a2a6c;--blue2:#243580;--blue3:#2e4099;
+  --accent:#c9a84c;--accent2:#e2c06a;--text:#e8ecff;--muted:#8a96c8;--border:rgba(100,120,255,0.15);--card:rgba(13,21,64,0.8);
+}
+body{background:var(--navy);color:var(--text);min-height:100vh;}
+.nav-glass{background:rgba(10,15,46,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.cart-item{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center;transition:border-color 0.2s;}
+.cart-item:hover{border-color:rgba(201,168,76,0.3);}
+.cart-img{width:90px;height:90px;border-radius:14px;object-fit:cover;flex-shrink:0;background:var(--navy3);}
+.qty-btn{width:34px;height:34px;border-radius:8px;background:var(--navy3);border:1px solid var(--border);color:var(--text);font-weight:900;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.qty-btn:hover{background:var(--blue2);}
+.remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:8px;font-size:1rem;transition:color 0.2s;flex-shrink:0;}
+.remove-btn:hover{color:#ef4444;}
+.summary-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;position:sticky;top:80px;}
+.coupon-input{background:var(--navy3);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--text);font-family:'Cairo',sans-serif;font-size:0.9rem;width:100%;outline:none;transition:border-color 0.2s;}
+.coupon-input:focus{border-color:var(--accent);}
+.btn-coupon{background:linear-gradient(135deg,var(--blue2),var(--blue3));color:#fff;font-weight:700;font-size:0.85rem;padding:10px 20px;border-radius:12px;border:none;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+.btn-coupon:hover{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--navy);}
+.checkout-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--navy);font-weight:900;font-size:1.05rem;padding:16px;border-radius:14px;border:none;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.checkout-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(201,168,76,0.35);}
+.continue-btn{width:100%;background:var(--navy3);border:1px solid var(--border);color:var(--muted);font-weight:700;font-size:0.9rem;padding:13px;border-radius:14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.continue-btn:hover{border-color:var(--accent);color:var(--text);}
+</style>
 </head>
-<body>
+<body x-data="cartPage()" x-init="init()">
 
-    <nav class="p-6 border-b border-white/5 flex justify-between items-center bg-black">
-        <a href="index.html" class="text-2xl font-black text-yellow-500 italic">ELBNA<span class="text-white">STORE</span></a>
-        <a href="index.html" class="text-sm font-bold text-gray-400 hover:text-white transition">العودة للمتجر ←</a>
-    </nav>
+<!-- NAV -->
+<nav class="nav-glass sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+    <a href="index.html" style="font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:3px;">KADRY</a>
+    <a href="index.html" style="font-size:0.85rem;font-weight:700;color:var(--muted);" class="hover:text-white transition"><i class="fas fa-arrow-right ml-1"></i>متابعة التسوق</a>
+  </div>
+</nav>
 
-    <div class="container mx-auto py-12 px-6 flex-grow">
-        <h1 class="text-4xl font-black mb-10 italic">سلة <span class="text-yellow-500">المشتريات</span></h1>
-        
-        <div id="cartContent" class="hidden">
-            <div class="cart-card rounded-[2.5rem] p-8">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-8 border-b border-white/5 pb-8">
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="h-40 w-40 bg-black rounded-3xl p-4 flex items-center justify-center border border-white/5">
-                            <img id="cartImg" src="" class="h-full object-contain" onerror="this.src='https://placehold.co/150x150/111/eab308?text=ELBNA+STORE'">
-                        </div>
-                        <div class="text-center md:text-right">
-                            <h3 id="cartName" class="text-2xl font-black text-white mb-2 uppercase"></h3>
-                            <p class="text-yellow-500 font-bold">الكمية: 1</p>
-                        </div>
-                    </div>
-                    <div class="text-4xl font-black"><span id="cartPrice">0</span> ج.م</div>
-                </div>
+<div class="max-w-6xl mx-auto px-4 py-10">
+  <h1 style="font-size:1.8rem;font-weight:900;margin-bottom:28px;display:flex;align-items:center;gap:10px;">
+    <i class="fas fa-shopping-bag" style="color:var(--accent);"></i> سلة المشتريات
+    <span style="font-size:1rem;font-weight:700;color:var(--muted);" x-text="'('+cart.length+' منتج)'"></span>
+  </h1>
 
-                <div class="mt-10 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div class="text-2xl font-bold text-gray-500">
-                        إجمالي المبلغ: <span id="totalPrice" class="text-white text-4xl font-black">0</span> ج.م
-                    </div>
-                    <div class="flex gap-4 w-full md:w-auto">
-                        <button onclick="clearCart()" class="text-red-500 font-bold px-4 hover:underline">حذف المنتج</button>
-                        <a href="checkout.html" class="btn-yellow px-12 py-4 rounded-2xl font-black text-xl hover:scale-105 transition shadow-lg text-center flex-grow">استكمال الطلب 🚀</a>
-                    </div>
-                </div>
+  <!-- EMPTY -->
+  <template x-if="cart.length===0">
+    <div style="text-align:center;padding:80px 20px;">
+      <div style="font-size:5rem;margin-bottom:16px;">🛍️</div>
+      <p style="font-size:1.5rem;font-weight:900;margin-bottom:8px;">السلة فاضية!</p>
+      <p style="color:var(--muted);margin-bottom:24px;">أضف منتجات لتبدأ رحلة التسوق</p>
+      <a href="index.html" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--navy);font-weight:900;padding:14px 36px;border-radius:50px;display:inline-flex;align-items:center;gap:8px;">
+        <i class="fas fa-shopping-bag"></i> تسوق الآن
+      </a>
+    </div>
+  </template>
+
+  <!-- HAS ITEMS -->
+  <template x-if="cart.length>0">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- ITEMS -->
+    <div class="lg:col-span-2 flex flex-col gap-3">
+      <template x-for="(item,idx) in cart" :key="idx">
+        <div class="cart-item">
+          <img :src="item.image_url||'https://placehold.co/90x90/1a2a6c/c9a84c?text=K'" class="cart-img" :alt="item.name"/>
+          <div style="flex:1;min-width:0;">
+            <h3 style="font-weight:700;font-size:0.92rem;line-height:1.4;margin-bottom:6px;color:#fff;" x-text="item.name"></h3>
+            <div style="display:flex;gap:10px;font-size:0.75rem;color:var(--muted);margin-bottom:10px;flex-wrap:wrap;">
+              <span x-show="item.size"><i class="fas fa-ruler-horizontal" style="color:var(--accent);margin-left:4px;"></i>مقاس: <b x-text="item.size"></b></span>
+              <span x-show="item.color"><i class="fas fa-palette" style="color:var(--accent);margin-left:4px;"></i>لون: <b x-text="item.color"></b></span>
             </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+              <span style="font-weight:900;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;" x-text="(item.finalPrice||item.price)+' ج.م'"></span>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <button class="qty-btn" @click="changeQty(idx,-1)">−</button>
+                <span style="min-width:30px;text-align:center;font-weight:900;" x-text="item.qty||1"></span>
+                <button class="qty-btn" @click="changeQty(idx,1)">+</button>
+              </div>
+              <span style="font-weight:900;font-size:0.95rem;color:#fff;" x-text="((item.finalPrice||item.price)*(item.qty||1))+' ج.م'"></span>
+            </div>
+          </div>
+          <button class="remove-btn" @click="removeItem(idx)"><i class="fas fa-trash-alt"></i></button>
         </div>
-
-        <div id="emptyMsg" class="text-center py-24">
-            <div class="text-8xl mb-6 opacity-20">🛒</div>
-            <h2 class="text-2xl font-black text-gray-500 mb-8 uppercase">سلتك فارغة!</h2>
-            <a href="index.html" class="bg-white text-black px-10 py-4 rounded-2xl font-black hover:bg-yellow-500 transition shadow-xl">تصفح المنتجات الآن</a>
-        </div>
+      </template>
     </div>
 
-    <footer class="py-6 text-center text-[10px] text-gray-700 tracking-[3px] uppercase border-t border-white/5">
-        © 2026 ELBNA STORE
-    </footer>
+    <!-- SUMMARY -->
+    <div class="lg:col-span-1">
+      <div class="summary-card">
+        <h2 style="font-size:1.1rem;font-weight:900;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);">ملخص الطلب</h2>
 
-    <script>
-        window.onload = function() {
-            const name  = localStorage.getItem('selectedProduct');
-            const price = localStorage.getItem('selectedPrice');
-            const img   = localStorage.getItem('selectedImg');
+        <!-- COUPON -->
+        <div style="margin-bottom:16px;">
+          <p style="font-weight:700;font-size:0.85rem;margin-bottom:8px;">كود خصم:</p>
+          <div style="display:flex;gap:8px;">
+            <input x-model="coupon" type="text" placeholder="KADRY15" class="coupon-input"/>
+            <button @click="applyCoupon()" class="btn-coupon">تطبيق</button>
+          </div>
+          <p x-show="couponMsg" :style="couponOk?'color:#22c55e':'color:#ef4444'" style="font-size:0.78rem;font-weight:700;margin-top:6px;" x-text="couponMsg"></p>
+        </div>
 
-            if (name && price) {
-                document.getElementById('cartContent').classList.remove('hidden');
-                document.getElementById('emptyMsg').classList.add('hidden');
-                document.getElementById('cartName').innerText  = name;
-                document.getElementById('cartPrice').innerText = price;
-                document.getElementById('totalPrice').innerText = price;
-                document.getElementById('cartImg').src = img || '';
-            }
-        };
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:0.88rem;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--muted);">المجموع الفرعي</span>
+            <span style="font-weight:700;" x-text="subtotal+' ج.م'"></span>
+          </div>
+          <div x-show="discount>0" style="display:flex;justify-content:space-between;align-items:center;color:#22c55e;">
+            <span>خصم الكود</span>
+            <span style="font-weight:700;" x-text="'- '+discount+' ج.م'"></span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="color:var(--muted);">الشحن</span>
+            <span style="color:#22c55e;font-weight:700;">يُحدد عند الطلب</span>
+          </div>
+          <div style="border-top:1px solid var(--border);padding-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:1rem;font-weight:900;">الإجمالي</span>
+            <span style="font-size:1.3rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;" x-text="(subtotal-discount)+' ج.م'"></span>
+          </div>
+        </div>
 
-        function clearCart() {
-            localStorage.removeItem('selectedProduct');
-            localStorage.removeItem('selectedPrice');
-            localStorage.removeItem('selectedImg');
-            location.reload();
-        }
-    </script>
+        <a href="checkout.html" class="checkout-btn" style="text-decoration:none;">
+          <i class="fas fa-lock"></i> إتمام الطلب
+        </a>
+        <button class="continue-btn mt-3" @click="window.location.href='index.html'">
+          <i class="fas fa-arrow-right"></i> متابعة التسوق
+        </button>
+
+        <div style="display:flex;justify-content:center;gap:16px;margin-top:14px;font-size:0.75rem;color:var(--muted);">
+          <span><i class="fas fa-lock" style="color:var(--accent);margin-left:4px;"></i>دفع آمن</span>
+          <span><i class="fas fa-truck" style="color:var(--accent);margin-left:4px;"></i>شحن سريع</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  </template>
+</div>
+
+<script>
+function cartPage(){
+  return{
+    cart:[],coupon:'',couponMsg:'',couponOk:false,discount:0,
+    init(){
+      try{this.cart=JSON.parse(localStorage.getItem('kadry_cart')||'[]');}catch{this.cart=[];}
+      this.discount=parseInt(localStorage.getItem('kadry_discount')||'0');
+    },
+    get subtotal(){return this.cart.reduce((s,i)=>s+(i.finalPrice||i.price)*(i.qty||1),0);},
+    changeQty(idx,d){this.cart[idx].qty=Math.max(1,(this.cart[idx].qty||1)+d);this.save();},
+    removeItem(idx){this.cart.splice(idx,1);this.save();},
+    save(){localStorage.setItem('kadry_cart',JSON.stringify(this.cart));},
+    applyCoupon(){
+      const c=this.coupon.trim().toUpperCase();
+      if(c==='KADRY15'){
+        this.discount=Math.round(this.subtotal*0.15);
+        this.couponMsg='🎉 تم تطبيق خصم 15%!';this.couponOk=true;
+        localStorage.setItem('kadry_discount',this.discount);
+      }else{this.discount=0;this.couponMsg='❌ كود غير صحيح';this.couponOk=false;}
+    }
+  }
+}
+</script>
 </body>
 </html>

@@ -1,382 +1,554 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ELBNA STORE | إلبنا ستور</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<title>KADRY Store — أحذية فاخرة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+*{font-family:'Cairo',sans-serif;box-sizing:border-box;}
+html,body{overflow-x:hidden;width:100%;}
 
-    <style>
-        body, h1, h2, h3, p, a, button, span { font-family: 'Cairo', sans-serif !important; }
-        body { scroll-behavior: smooth; background-color: #0f0f0f; color: white; overflow-x: hidden; }
-        .fas, .fab, .far, i { font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands" !important; font-style: normal !important; }
+:root{
+  --navy:#ffffff;
+  --navy2:#ffffff;
+  --navy3:#f5f5f5;
+  --blue:#000000;
+  --blue2:#000000;
+  --blue3:#000000;
+  --accent:#000000;
+  --accent2:rgba(0,0,0,0.6);
+  --accent3:rgba(0,0,0,0.04);
+  --text:#000000;
+  --muted:rgba(0,0,0,0.5);
+  --border:rgba(0,0,0,0.08);
+  --card:rgba(255,255,255,0.98);
+}
 
-        .glass-nav { background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+body{background:var(--navy);color:var(--text);}
 
-        #mobile-menu { display: none; flex-direction: column; background: rgba(0,0,0,0.97); position: fixed; top: 64px; right: 0; left: 0; z-index: 49; padding: 16px 24px; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.07); }
-        #mobile-menu.open { display: flex; }
-        #mobile-menu a { font-size: 1rem; font-weight: 700; color: #d1d5db; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); text-decoration: none; transition: color .2s; }
-        #mobile-menu a:hover, #mobile-menu a.active { color: #eab308; }
-        .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
-        .hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
-        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;background:linear-gradient(135deg,#000 0%,#1a1a1a 100%);border-bottom:1px solid rgba(255,255,255,0.1);}
+.marquee-inner{display:inline-flex;animation:marquee 24s linear infinite;white-space:nowrap;color:#fff;}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-        .hero-text { text-shadow: 0 0 20px rgba(234,179,8,0.5); }
-        .hero-bg { position: relative; height: 100vh; min-height: 500px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #000; }
-        .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 0.8s ease-in-out; z-index: 1; }
-        .hero-slide.active { opacity: 1; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2; }
-        .hero-content { z-index: 10; position: relative; text-align: center; padding: 0 20px; }
+/* NAV */
+.nav-glass{background:var(--navy);border-bottom:1px solid var(--border);}
 
-        .product-card, .review-card { background: #1a1a1a; transition: 0.5s; border: 1px solid #222; overflow: hidden; position: relative; }
-        .product-card:hover { transform: translateY(-10px); border-color: #eab308; }
+/* HERO */
+.hero-section{background:linear-gradient(135deg,#fff 0%,#fbfbfb 50%,#f5f5f5 100%);position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;}
+.hero-badge{background:linear-gradient(135deg,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.03) 100%);color:var(--text);font-weight:900;padding:6px 18px;border-radius:50px;font-size:0.75rem;display:inline-block;letter-spacing:2px;text-transform:uppercase;border:1.5px solid var(--text);}
+.hero-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:900;line-height:1.05;background:linear-gradient(135deg,#000 0%,#444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 
-        .gradient-btn { background: linear-gradient(90deg,#eab308 0%,#ca8a04 100%); color: black; }
-        .tab-btn.active { background-color: #eab308; color: black; border-color: #eab308; }
+/* CTA BUTTONS — مبتكرة */
+.hero-cta-main{
+  background:linear-gradient(135deg,#000 0%,#2a2a2a 100%);color:#fff;font-weight:900;padding:14px 34px;border-radius:4px;font-size:1rem;
+  transition:all 0.25s;display:inline-flex;align-items:center;gap:10px;
+  box-shadow:4px 4px 0 rgba(0,0,0,0.15);letter-spacing:1px;
+}
+.hero-cta-main:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,0.2);}
+.hero-cta-sec{
+  background:linear-gradient(135deg,transparent 0%,rgba(0,0,0,0.03) 100%);border:2px solid #000;color:#000;font-weight:900;padding:14px 34px;
+  border-radius:4px;font-size:1rem;transition:all 0.25s;display:inline-flex;align-items:center;gap:10px;
+  box-shadow:4px 4px 0 rgba(0,0,0,0.08);
+}
+.hero-cta-sec:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,0.12);}
 
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-left: 6px; }
-        .dot-online { background-color: #22c55e; box-shadow: 0 0 10px #22c55e; }
-        .old-price { text-decoration: line-through; color: #ef4444; font-size: 0.85rem; opacity: 0.7; }
-        .discount-badge { background: linear-gradient(135deg,#ef4444,#dc2626); color: #fff; font-size: .7rem; font-weight: 900; padding: 3px 8px; border-radius: 8px; }
+.hero-stats span{font-size:0.8rem;color:var(--muted);}
+.hero-stats strong{font-size:1.4rem;font-weight:900;color:var(--text);display:block;}
+.hero-stat-divider{width:1px;height:40px;background:var(--border);}
 
-        .whatsapp-float { position: fixed; bottom: 24px; left: 24px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 28px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5); z-index: 100; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: 0.3s; }
-        .whatsapp-float:hover { transform: scale(1.1); }
+/* FLOATING LOGO */
+.shoe-float{animation:shoeFloat 4s ease-in-out infinite;}
+@keyframes shoeFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(2deg)}}
 
-        #product-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
-        @media(min-width:640px){ #product-list{grid-template-columns:repeat(2,1fr);gap:16px;} }
-        @media(min-width:768px){ #product-list{grid-template-columns:repeat(3,1fr);gap:20px;} }
-        @media(min-width:1024px){ #product-list{grid-template-columns:repeat(4,1fr);gap:24px;} }
+/* FEATURES */
+.features-bar{background:linear-gradient(135deg,#000 0%,#111 50%,#0a0a0a 100%);border-top:none;border-bottom:none;}
+.feature-item i{color:#fff;font-size:1.3rem;}
+.feature-item .f-title{font-weight:700;font-size:0.85rem;color:#fff;}
+.feature-item .f-sub{background:linear-gradient(90deg,rgba(255,255,255,0.5) 0%,rgba(255,255,255,0.3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:0.72rem;}
 
-        @media(max-width:639px){
-            .product-card{border-radius:18px!important;}
-            .product-card .prod-img-wrap{height:160px!important;}
-            .product-card h3{font-size:.9rem!important;margin-bottom:8px!important;}
-            .product-card .old-price{font-size:.7rem!important;}
-            .product-card .price-big{font-size:1.3rem!important;}
-            .product-card .order-btn{padding:10px!important;font-size:.8rem!important;}
-            .product-card .card-body{padding:10px!important;}
-            .tab-btn{padding:6px 12px!important;font-size:.75rem!important;}
-        }
-        @media(max-width:639px){
-            .hero-bg{height:92vh;min-height:480px;}
-            .hero-title{font-size:2.8rem!important;}
-            .hero-sub{font-size:1rem!important;margin-bottom:28px!important;}
-            .hero-cta{padding:14px 32px!important;font-size:.95rem!important;}
-        }
+/* SECTION TITLES */
+.section-badge{background:linear-gradient(135deg,#000 0%,#333 100%);color:#fff;padding:4px 16px;border-radius:2px;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;display:inline-block;margin-bottom:12px;font-weight:900;}
+.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;background:linear-gradient(135deg,#000 0%,#444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.section-line{width:40px;height:3px;background:linear-gradient(90deg,#000 0%,#555 100%);border-radius:2px;margin:12px 0 0;}
 
-        .tabs-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
-        .tabs-scroll::-webkit-scrollbar { display: none; }
-        .tabs-inner { display: flex; gap: 10px; white-space: nowrap; min-width: max-content; }
+/* PRODUCT CARDS */
+.prod-card{background:linear-gradient(135deg,#fff 0%,#f8f8f8 100%);border:1px solid var(--border);border-radius:0;overflow:hidden;transition:all 0.3s;cursor:pointer;position:relative;}
+.prod-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(0,0,0,0.12);}
+.prod-img-wrap{height:220px;background:linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 50%,#f0f0f0 100%);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;}
+.prod-img-wrap img{height:100%;width:100%;object-fit:cover;transition:transform 0.5s;}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.06);}
+.badge-new{position:absolute;top:10px;right:10px;background:linear-gradient(135deg,#000 0%,#333 100%);color:#fff;font-size:0.6rem;font-weight:900;padding:3px 10px;border-radius:2px;letter-spacing:1px;}
+.badge-sale{position:absolute;top:10px;left:10px;background:linear-gradient(135deg,#ffb3b3 0%,#ff9999 100%);color:#000;border:1px solid #ff6666;font-size:0.6rem;font-weight:900;padding:3px 10px;border-radius:2px;}
+.prod-body{padding:16px;}
+.prod-name{font-weight:700;font-size:0.95rem;line-height:1.4;margin-bottom:10px;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.prod-price{font-weight:900;font-size:1.25rem;color:var(--text);}
+.prod-old{font-size:0.8rem;color:var(--muted);text-decoration:line-through;margin-right:6px;}
 
-        .review-card { border-radius: 1.5rem; }
-        .stars { color: #eab308; }
-    </style>
+/* ADD BTN — مبتكر */
+.add-btn{
+  width:100%;background:linear-gradient(135deg,#000 0%,#333 100%);color:#fff;font-weight:900;font-size:0.82rem;padding:11px;
+  border:none;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;
+  gap:8px;margin-top:12px;border-radius:2px;letter-spacing:0.5px;
+}
+.add-btn:hover{background:linear-gradient(135deg,#111 0%,#444 100%);}
+
+/* FILTER ROW */
+.filter-tab{
+  padding:7px 18px;border-radius:2px;border:1.5px solid var(--border);background:transparent;
+  color:var(--muted);font-family:'Cairo',sans-serif;font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.2s;
+}
+.filter-tab.active,.filter-tab:hover{background:linear-gradient(135deg,#000 0%,#333 100%);color:#fff;border-color:#000;}
+
+/* SKELETON */
+.skeleton{background:linear-gradient(90deg,#f5f5f5 25%,#d8d8d8 50%,#f5f5f5 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* REVIEWS */
+.review-card{background:linear-gradient(135deg,#fff 0%,#fafafa 100%);border:1px solid var(--border);border-radius:0;padding:24px;transition:box-shadow 0.3s;}
+.review-card:hover{box-shadow:4px 4px 0 #000;}
+.star-filled{color:#000;}
+.review-avatar{width:46px;height:46px;border-radius:0;background:linear-gradient(135deg,#000 0%,#333 100%);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:1rem;flex-shrink:0;}
+
+/* FOOTER */
+footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color:#fff;}
+.social-btn{width:44px;height:44px;border-radius:0;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);transition:all 0.3s;font-size:1rem;}
+.social-btn:hover{background:linear-gradient(135deg,#fff 0%,#e0e0e0 100%);color:#000;border-color:#fff;transform:translateY(-3px);}
+
+/* MOBILE NAV */
+.bottom-nav{background:#fff;border-top:1px solid var(--border);}
+
+/* TOAST */
+.toast-popup{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#000 0%,#2a2a2a 100%);color:#fff;font-weight:900;padding:12px 28px;border-radius:2px;z-index:9999;font-size:0.9rem;pointer-events:none;box-shadow:4px 4px 0 rgba(0,0,0,0.3);}
+
+/* WHATSAPP */
+.wa-btn{position:fixed;bottom:90px;right:16px;width:54px;height:54px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;z-index:100;box-shadow:0 4px 20px rgba(37,211,102,0.45);transition:all 0.15s;border:none}
+.wa-btn:hover{transform:scale(1.05);}
+@media(min-width:768px){.wa-btn{bottom:30px;right:30px;}}
+
+@media(max-width:640px){
+  .prod-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px!important;}
+  .prod-img-wrap{height:160px!important;}
+  .prod-name{font-size:0.8rem!important;}
+  .prod-price{font-size:1rem!important;}
+  .add-btn{font-size:0.75rem!important;padding:8px!important;}
+}
+</style>
 </head>
-<body>
+<body x-data="store()" x-init="init()">
 
-<!-- ══ NAVBAR ══ -->
-<nav class="glass-nav fixed w-full z-50 py-4 px-5">
-    <div class="container mx-auto flex justify-between items-center">
-        <div class="text-2xl md:text-3xl font-black text-yellow-500 italic tracking-tighter">
-            ELBNA <span class="text-white">STORE</span>
-        </div>
-        <div class="hidden md:flex gap-8 font-bold text-sm">
-            <a href="index.html" class="text-yellow-500">الرئيسية</a>
-            <a href="#about" class="hover:text-yellow-500 transition">لماذا نحن؟</a>
-            <a href="#products" class="hover:text-yellow-500 transition">المنتجات</a>
-            <a href="#reviews" class="hover:text-yellow-500 transition">آراء العملاء</a>
-        </div>
-        <div class="flex items-center gap-4">
-            <a href="cart.html" class="text-xl">🛒</a>
-            <div class="md:hidden hamburger" id="hamburger" onclick="toggleMenu()">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<div id="mobile-menu">
-    <a href="index.html" class="active" onclick="closeMenu()">الرئيسية</a>
-    <a href="#about" onclick="closeMenu()">لماذا نحن؟</a>
-    <a href="#products" onclick="closeMenu()">المنتجات</a>
-    <a href="#reviews" onclick="closeMenu()">آراء العملاء</a>
+<!-- TOP MARQUEE -->
+<div class="marquee-wrap py-2">
+  <div class="marquee-inner text-xs font-black">
+    <span class="px-5">🚚 شحن لجميع المحافظات</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+    <span class="px-5">✅ أحذية أصلية 100%</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+    <span class="px-5">🎁 خصم 15% كود: KADRY15</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+    <span class="px-5">📞 دعم العملاء 24/7</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+    <span class="px-5">🚚 شحن لجميع المحافظات</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+    <span class="px-5">✅ أحذية أصلية 100%</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+    <span class="px-5">🎁 خصم 15% كود: KADRY15</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+    <span class="px-5">📞 دعم العملاء 24/7</span>
+    <span class="px-3" style="opacity:0.3;">|</span>
+  </div>
 </div>
 
-<!-- ══ HERO ══ -->
-<section id="hero" class="hero-bg px-4">
-    <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1920&q=80')"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content" data-aos="zoom-in">
-        <h1 class="hero-title text-5xl md:text-7xl lg:text-8xl font-black hero-text mb-4 md:mb-6 uppercase italic leading-none">
-            اشتري <span class="text-yellow-500">الأفضل</span>
-        </h1>
-        <p class="hero-sub text-lg md:text-2xl text-gray-300 mb-8 md:mb-10 font-bold italic px-4">
-            ساعات ذكية · سماعات · إكسسوارات إلكترونية | ضمان 3 شهور 🛡️
-        </p>
-        <a href="#products" class="hero-cta gradient-btn font-black px-8 md:px-12 py-3 md:py-4 rounded-full inline-block shadow-lg hover:shadow-[0_0_30px_rgba(234,179,8,0.4)] transition text-sm md:text-base">
-            تسوق العروض الآن
+<!-- NAVBAR -->
+<nav class="nav-glass sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="flex flex-col leading-none">
+        <span style="font-size:1.5rem;font-weight:900;color:#000;letter-spacing:3px;">KADRY Store</span>
+        <span style="font-size:0.55rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;">SHOES</span>
+      </div>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+      <a href="index.html" style="color:#000">الرئيسية</a>
+      <a href="#products" style="color:var(--muted)" class="hover:text-black transition">المنتجات</a>
+      <a href="#about" style="color:var(--muted)" class="hover:text-black transition">من نحن</a>
+      <a href="#contact" style="color:var(--muted)" class="hover:text-black transition">تواصل</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="cart.html" class="relative p-2">
+        <i class="fas fa-shopping-bag" style="font-size:1.3rem;color:#000"></i>
+        <span x-show="cartCount>0" x-text="cartCount" style="position:absolute;top:-2px;left:-2px;background:#000;color:#fff;font-size:0.65rem;font-weight:900;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;"></span>
+      </a>
+      <button @click="mobileMenu=!mobileMenu" class="md:hidden p-2" style="color:#000">
+        <i :class="mobileMenu?'fa-times':'fa-bars'" class="fas" style="font-size:1.2rem;"></i>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div x-show="mobileMenu" x-transition style="background:#fff;border-top:1px solid var(--border);padding:16px;">
+    <div class="flex flex-col gap-3">
+      <a href="index.html" style="color:#000;font-weight:700;padding:10px 0;border-bottom:1px solid var(--border);">الرئيسية</a>
+      <a href="#products" @click="mobileMenu=false" style="color:var(--muted);font-weight:700;padding:10px 0;border-bottom:1px solid var(--border);">المنتجات</a>
+      <a href="#about" @click="mobileMenu=false" style="color:var(--muted);font-weight:700;padding:10px 0;border-bottom:1px solid var(--border);">من نحن</a>
+      <a href="#contact" @click="mobileMenu=false" style="color:var(--muted);font-weight:700;padding:10px 0;">تواصل</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-section px-4">
+  <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,0.045) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
+  <div class="max-w-7xl mx-auto w-full py-20 flex flex-col md:flex-row items-center gap-12 relative z-10">
+    <div class="flex-1 text-center md:text-right">
+      <div class="hero-badge mb-4">✦ كولكشن 2025</div>
+      <h1 class="hero-title mb-5">KADRY Store<br><span style="font-size:0.52em;font-weight:300;letter-spacing:4px;">أحذية بتفرق</span></h1>
+      <p style="color:var(--muted);font-size:1.05rem;max-width:420px;margin:0 auto 32px;line-height:1.9;" class="md:mr-0 md:ml-auto">
+        كوتشيات وسليبرز وأحذية رياضية بأجمل التصاميم. خامات فاخرة وأسعار تنافسية. توصيل سريع لجميع المحافظات.
+      </p>
+      <div class="flex gap-3 justify-center md:justify-start flex-wrap">
+        <a href="#products" class="hero-cta-main">
+          <i class="fas fa-shopping-bag"></i> تسوق الآن
         </a>
+        <a href="#about" class="hero-cta-sec">
+          <i class="fas fa-arrow-left" style="font-size:0.75rem;"></i> اعرف أكثر
+        </a>
+      </div>
+      <div class="flex items-center gap-6 mt-10 justify-center md:justify-start">
+        <div class="hero-stats text-center">
+          <strong>+500</strong>
+          <span>عميل سعيد</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stats text-center">
+          <strong>27</strong>
+          <span>محافظة</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stats text-center">
+          <strong>100%</strong>
+          <span>جودة مضمونة</span>
+        </div>
+      </div>
     </div>
+
+    <!-- LOGO IMAGE بدل الإيموجي -->
+    <div class="flex-shrink-0 relative flex items-center justify-center">
+      <div class="shoe-float relative z-10" style="text-align:center;">
+        <div style="width:300px;height:300px;border-radius:8px;border:1.5px solid var(--border);overflow:hidden;background:#f9f9f9;display:flex;align-items:center;justify-content:center;box-shadow:8px 8px 0 rgba(0,0,0,0.06);">
+          <img src="logo.jpeg" alt="KADRY Store Logo" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <div style="display:none;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;color:#000;flex-direction:column;gap:8px;">
+            <i class="fas fa-store" style="font-size:3rem;"></i>
+            KADRY
+          </div>
+        </div>
+        <div style="position:absolute;top:-12px;right:-12px;background:#000;color:#fff;padding:8px 16px;border-radius:2px;font-size:0.72rem;font-weight:900;letter-spacing:1px;">NEW ARRIVAL</div>
+        <div style="position:absolute;bottom:-14px;left:-14px;background:#fff;border:1.5px solid #000;padding:10px 16px;border-radius:2px;font-size:0.8rem;font-weight:700;display:flex;align-items:center;gap:6px;box-shadow:3px 3px 0 rgba(0,0,0,0.08);">
+          <span style="color:#000;">★★★★★</span>
+          <span style="color:var(--muted);font-size:0.7rem;">4.9</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ══ ABOUT ══ -->
-<section id="about" class="bg-[#0a0a0a] py-16 md:py-20 px-5 border-y border-white/5">
-    <div class="container mx-auto about-grid grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 text-center">
-        <div data-aos="fade-up">
-            <i class="fas fa-certificate text-3xl md:text-4xl text-yellow-500 mb-4"></i>
-            <h3 class="text-lg md:text-xl font-black mb-2">منتجات أصلية</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">ساعات ذكية وسماعات وإكسسوارات إلكترونية أصلية 100% مع ضمان 3 شهور على كل المنتجات.</p>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="100">
-            <i class="fas fa-bolt text-3xl md:text-4xl text-yellow-500 mb-4"></i>
-            <h3 class="text-lg md:text-xl font-black mb-2">أسرع شحن في مصر</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">نحن ندرك قيمة وقتك؛ لذا نوفر أسرع خدمة توصيل لكل المحافظات وبأرخص سعر.</p>
-        </div>
-        <div data-aos="fade-up" data-aos-delay="200">
-            <i class="fas fa-hand-holding-usd text-3xl md:text-4xl text-yellow-500 mb-4"></i>
-            <h3 class="text-lg md:text-xl font-black mb-2">أرخص الأسعار</h3>
-            <p class="text-gray-400 text-sm leading-relaxed">نحطم الأسعار لنقدم لك منتجات إلكترونية أصلية بأقل تكلفة ممكنة في السوق المصري.</p>
-        </div>
+<!-- FEATURES BAR -->
+<section class="features-bar py-5">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="feature-item flex items-center gap-3">
+      <i class="fas fa-truck"></i>
+      <div><div class="f-title">شحن سريع</div><div class="f-sub">لجميع المحافظات</div></div>
     </div>
+    <div class="feature-item flex items-center gap-3">
+      <i class="fas fa-shield-alt"></i>
+      <div><div class="f-title">جودة مضمونة</div><div class="f-sub">أحذية أصلية 100%</div></div>
+    </div>
+    <div class="feature-item flex items-center gap-3">
+      <i class="fas fa-exchange-alt"></i>
+      <div><div class="f-title">استبدال سهل</div><div class="f-sub">خلال 14 يوم</div></div>
+    </div>
+    <div class="feature-item flex items-center gap-3">
+      <i class="fas fa-headset"></i>
+      <div><div class="f-title">دعم 24/7</div><div class="f-sub">واتساب وفيسبوك</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- ══ PRODUCTS ══ -->
-<section id="products" class="container mx-auto py-16 md:py-24 px-4 md:px-6">
-    <div class="flex flex-col gap-5 mb-10 md:mb-16" data-aos="fade-left">
-        <div class="flex items-center gap-4">
-            <div class="h-8 md:h-10 w-1.5 md:w-2 bg-yellow-500"></div>
-            <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter">أقوى العروض</h2>
-        </div>
-        <div class="tabs-scroll">
-            <div class="tabs-inner" id="filter-tabs-container">
-                <button onclick="filterProducts('all',event)" class="tab-btn active border border-white/10 px-5 py-2 rounded-xl font-bold text-sm transition">الكل</button>
-            </div>
-        </div>
+<!-- PRODUCTS -->
+<section id="products" class="py-16 px-4" style="background:#fff;">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+      <div>
+        <div class="section-badge">المنتجات</div>
+        <h2 class="section-title">أحدث التصاميم</h2>
+        <div class="section-line"></div>
+      </div>
+      <!-- فلتر الكل + الفئات الصغيرة -->
+      <div class="flex flex-wrap gap-2 items-center">
+        <button @click="activeFilter=''" :class="activeFilter===''?'active':''" class="filter-tab">الكل</button>
+        <template x-for="cat in categories" :key="cat.id">
+          <button @click="activeFilter=cat.slug" :class="activeFilter===cat.slug?'active':''" class="filter-tab" x-text="cat.name"></button>
+        </template>
+        <!-- فئات افتراضية لو مفيش API -->
+        <template x-if="!categories.length && !loadingCats">
+          <div class="flex flex-wrap gap-2">
+            <button @click="activeFilter='sneakers'" :class="activeFilter==='sneakers'?'active':''" class="filter-tab">كوتشيات</button>
+            <button @click="activeFilter='slippers'" :class="activeFilter==='slippers'?'active':''" class="filter-tab">سليبرز</button>
+            <button @click="activeFilter='sports'" :class="activeFilter==='sports'?'active':''" class="filter-tab">رياضي</button>
+            <button @click="activeFilter='sandals'" :class="activeFilter==='sandals'?'active':''" class="filter-tab">صنادل</button>
+          </div>
+        </template>
+      </div>
     </div>
-    <div id="product-list"></div>
+
+    <!-- Skeleton -->
+    <div x-show="loadingProds" class="prod-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <template x-for="i in 8">
+        <div style="overflow:hidden;">
+          <div style="height:200px;" class="skeleton"></div>
+          <div style="padding:14px;background:#fff;">
+            <div class="skeleton" style="height:14px;border-radius:2px;margin-bottom:8px;width:80%;"></div>
+            <div class="skeleton" style="height:18px;border-radius:2px;width:50%;"></div>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <!-- Products Grid -->
+    <div x-show="!loadingProds" class="prod-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <template x-for="p in filteredProducts" :key="p.id">
+        <div class="prod-card" @click="goToProduct(p)">
+          <div class="prod-img-wrap">
+            <img :src="p.image_url||'https://placehold.co/400x300/f5f5f5/000000?text=KADRY'" :alt="p.name" loading="lazy"/>
+            <div class="badge-new" x-show="isNew(p)">جديد</div>
+            <div class="badge-sale" x-show="hasDiscount(p)" x-text="discountBadge(p)"></div>
+            <button @click.stop="addToCart(p)" style="position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;font-weight:900;padding:10px;font-size:0.78rem;opacity:0;transition:opacity 0.25s;display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:0.5px;" class="hover-reveal">
+              <i class="fas fa-cart-plus"></i> أضف للسلة
+            </button>
+          </div>
+          <div class="prod-body">
+            <h3 class="prod-name" x-text="p.name"></h3>
+            <div class="flex items-center gap-1 flex-wrap">
+              <span class="prod-old" x-show="hasDiscount(p)" x-text="p.price+' ج.م'"></span>
+              <span class="prod-price" x-text="calcPrice(p)+' ج.م'"></span>
+            </div>
+            <button @click.stop="addToCart(p)" class="add-btn">
+              <i class="fas fa-shopping-bag" style="font-size:0.8rem;"></i> أضف للسلة
+            </button>
+          </div>
+        </div>
+      </template>
+      <div x-show="filteredProducts.length===0&&!loadingProds" style="grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);">
+        <i class="fas fa-box-open" style="font-size:3rem;margin-bottom:12px;display:block;"></i>
+        <p style="font-weight:700;">لا توجد منتجات</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ══ REVIEWS ══ -->
-<section id="reviews" class="bg-[#0a0a0a] py-16 md:py-24 px-4 md:px-6">
-    <div class="container mx-auto">
-        <div class="flex items-center gap-4 mb-10 md:mb-16" data-aos="fade-left">
-            <div class="h-8 md:h-10 w-1.5 md:w-2 bg-yellow-500"></div>
-            <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter">آراء العملاء</h2>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8" id="reviews-container">
-            <div class="review-card p-6 md:p-8" data-aos="fade-up">
-                <div class="flex items-center gap-4 mb-5">
-                    <div class="w-11 h-11 bg-yellow-500 rounded-full flex items-center justify-center text-black font-black text-lg">م</div>
-                    <div><h4 class="font-bold">محمد أحمد</h4><p class="stars text-xs">★★★★★</p></div>
-                </div>
-                <p class="text-gray-400 italic text-sm leading-relaxed">"الساعة الذكية وصلتني بسرعة وجودتها خيالية، سعر ممتاز ومش بيتلاقيش في أي مكان تاني!"</p>
-            </div>
-            <div class="review-card p-6 md:p-8" data-aos="fade-up" data-aos-delay="100">
-                <div class="flex items-center gap-4 mb-5">
-                    <div class="w-11 h-11 bg-yellow-500 rounded-full flex items-center justify-center text-black font-black text-lg">س</div>
-                    <div><h4 class="font-bold">سارة علي</h4><p class="stars text-xs">★★★★★</p></div>
-                </div>
-                <p class="text-gray-400 italic text-sm leading-relaxed">"اشتريت سماعة بلوتوث وجودة الصوت عالية جداً، التغليف محترم والتوصيل كان سريع."</p>
-            </div>
-            <div class="review-card p-6 md:p-8" data-aos="fade-up" data-aos-delay="200">
-                <div class="flex items-center gap-4 mb-5">
-                    <div class="w-11 h-11 bg-yellow-500 rounded-full flex items-center justify-center text-black font-black text-lg">ع</div>
-                    <div><h4 class="font-bold">عمر حسن</h4><p class="stars text-xs">★★★★★</p></div>
-                </div>
-                <p class="text-gray-400 italic text-sm leading-relaxed">"أحسن متجر إلكتروني جربته، الضمان 3 شهور ده ميزة كبيرة وخدمة العملاء ممتازة."</p>
-            </div>
-        </div>
+<!-- ABOUT -->
+<section id="about" class="py-16 md:py-20 px-4" style="background:#f9f9f9;">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="section-badge">من نحن</div>
+    <h2 class="section-title">KADRY Store</h2>
+    <div class="section-line mx-auto"></div>
+    <p style="color:var(--muted);line-height:1.9;margin-top:20px;font-size:1rem;max-width:600px;margin-left:auto;margin-right:auto;">
+      كادري متجر متخصص في الأحذية العصرية — كوتشيات، سليبرز، وأحذية رياضية. نجيب أجمل التصاميم بأفضل الخامات وبأسعار منافسة. نوصّل لجميع محافظات مصر 🚚
+    </p>
+    <div class="grid grid-cols-3 gap-6 mt-10">
+      <div style="background:#fff;border:1.5px solid #000;padding:24px;box-shadow:4px 4px 0 rgba(0,0,0,0.06);">
+        <div style="font-size:2rem;font-weight:900;color:#000;">+500</div>
+        <div style="color:var(--muted);font-size:0.82rem;margin-top:4px;">عميل سعيد</div>
+      </div>
+      <div style="background:#000;border:1.5px solid #000;padding:24px;">
+        <div style="font-size:2rem;font-weight:900;color:#fff;">27</div>
+        <div style="color:rgba(255,255,255,0.6);font-size:0.82rem;margin-top:4px;">محافظة</div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #000;padding:24px;box-shadow:4px 4px 0 rgba(0,0,0,0.06);">
+        <div style="font-size:2rem;font-weight:900;color:#000;">100%</div>
+        <div style="color:var(--muted);font-size:0.82rem;margin-top:4px;">جودة مضمونة</div>
+      </div>
     </div>
+  </div>
 </section>
 
-<!-- ══ FOOTER ══ -->
-<footer class="bg-black py-10 md:py-12 px-6 border-t border-white/5 text-center">
-    <div class="flex justify-center gap-8 mb-6 text-2xl">
-        <a href="https://www.tiktok.com/@elbanastore0" target="_blank" class="text-gray-500 hover:text-white transition"><i class="fab fa-tiktok"></i></a>
-        <a href="https://wa.me/201006544789" target="_blank" class="text-gray-500 hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
+<!-- REVIEWS -->
+<section class="py-16 px-4" style="background:#fff;">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-10">
+      <div class="section-badge">آراء العملاء</div>
+      <h2 class="section-title">ماذا قالوا عنّا</h2>
+      <div class="section-line mx-auto"></div>
     </div>
-    <p class="text-yellow-500 text-xs font-bold mb-2 uppercase tracking-widest italic">© 2026 ELBNA STORE | جميع الحقوق محفوظة</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviews-container">
+      <div class="review-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div class="review-avatar">م</div>
+          <div><div style="font-weight:700;font-size:0.95rem;">محمد أحمد</div><div class="star-filled" style="font-size:0.8rem;">★★★★★</div></div>
+        </div>
+        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"جودة الأحذية عالية جداً والتوصيل وصل سريع. سعر ممتاز ومش بيتلاقيش في أي حتة تانية!"</p>
+      </div>
+      <div class="review-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div class="review-avatar">س</div>
+          <div><div style="font-weight:700;font-size:0.95rem;">سارة علي</div><div class="star-filled" style="font-size:0.8rem;">★★★★★</div></div>
+        </div>
+        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"اشتريت سليبرز والخامة فاخرة جداً. التغليف محترم والتوصيل كان في الميعاد."</p>
+      </div>
+      <div class="review-card">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <div class="review-avatar">ع</div>
+          <div><div style="font-weight:700;font-size:0.95rem;">عمر حسن</div><div class="star-filled" style="font-size:0.8rem;">★★★★★</div></div>
+        </div>
+        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"أحسن متجر أحذية جربته. الاستبدال سهل وخدمة العملاء ممتازة وسريعة الرد."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact" class="py-12 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+      <div>
+        <div style="font-size:1.8rem;font-weight:900;color:#fff;letter-spacing:3px;margin-bottom:8px;">KADRY Store</div>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;line-height:1.8;">أحذية بتفرق. كوتشيات، سليبرز، وأحذية رياضية بأجمل التصاميم وأعلى جودة.</p>
+        <div class="flex gap-3 mt-4">
+          <a href="https://www.tiktok.com/@kadrystore" target="_blank" class="social-btn"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/kadry_store2" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/1EobcF39CM/" target="_blank" class="social-btn"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-weight:900;font-size:1rem;color:#fff;margin-bottom:16px;letter-spacing:1px;">روابط سريعة</h3>
+        <div class="flex flex-col gap-2" style="font-size:0.88rem;color:rgba(255,255,255,0.5);">
+          <a href="#products" class="hover:text-white transition">المنتجات</a>
+          <a href="cart.html" class="hover:text-white transition">السلة</a>
+          <a href="#about" class="hover:text-white transition">من نحن</a>
+          <a href="#contact" class="hover:text-white transition">تواصل معنا</a>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-weight:900;font-size:1rem;color:#fff;margin-bottom:16px;letter-spacing:1px;">تواصل معنا</h3>
+        <div class="flex flex-col gap-3" style="font-size:0.85rem;">
+          <a href="https://www.tiktok.com/@kadrystore" target="_blank" class="flex items-center gap-3 hover:text-white transition" style="color:rgba(255,255,255,0.5);">
+            <i class="fab fa-tiktok" style="color:#fff;width:18px;"></i> TikTok
+          </a>
+          <a href="https://www.instagram.com/kadry_store2" target="_blank" class="flex items-center gap-3 hover:text-white transition" style="color:rgba(255,255,255,0.5);">
+            <i class="fab fa-instagram" style="color:#fff;width:18px;"></i> Instagram
+          </a>
+          <a href="https://www.facebook.com/share/1EobcF39CM/" target="_blank" class="flex items-center gap-3 hover:text-white transition" style="color:rgba(255,255,255,0.5);">
+            <i class="fab fa-facebook" style="color:#fff;width:18px;"></i> Facebook
+          </a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:rgba(255,255,255,0.3);font-size:0.78rem;">
+      © 2025 KADRY Store. جميع الحقوق محفوظة.
+    </div>
+  </div>
 </footer>
 
-<a href="https://wa.me/201006544789" target="_blank" class="whatsapp-float">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<!-- MOBILE BOTTOM NAV -->
+<div class="bottom-nav fixed bottom-0 left-0 right-0 md:hidden z-50">
+  <div class="flex items-center justify-around py-3 px-2">
+    <a href="index.html" class="flex flex-col items-center gap-1" style="color:#000;">
+      <i class="fas fa-home" style="font-size:1.1rem;"></i>
+      <span style="font-size:0.65rem;font-weight:700;">الرئيسية</span>
+    </a>
+    <a href="#products" class="flex flex-col items-center gap-1" style="color:var(--muted);">
+      <i class="fas fa-box" style="font-size:1.1rem;"></i>
+      <span style="font-size:0.65rem;font-weight:700;">المنتجات</span>
+    </a>
+    <a href="cart.html" class="flex flex-col items-center gap-1 relative" style="color:var(--muted);">
+      <i class="fas fa-shopping-bag" style="font-size:1.1rem;"></i>
+      <span style="font-size:0.65rem;font-weight:700;">السلة</span>
+      <span x-show="cartCount>0" x-text="cartCount" style="position:absolute;top:-4px;right:-4px;background:#000;color:#fff;font-size:0.6rem;font-weight:900;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;"></span>
+    </a>
+    <a href="#contact" class="flex flex-col items-center gap-1" style="color:var(--muted);">
+      <i class="fas fa-phone" style="font-size:1.1rem;"></i>
+      <span style="font-size:0.65rem;font-weight:700;">تواصل</span>
+    </a>
+  </div>
+</div>
+<div class="h-16 md:hidden"></div>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- WHATSAPP -->
+<a href="https://wa.me/" target="_blank" class="wa-btn"><i class="fab fa-whatsapp"></i></a>
+
+<!-- TOAST -->
+<div x-show="toast" x-transition class="toast-popup"><i class="fas fa-check-circle"></i> تمت الإضافة للسلة!</div>
+
+<style>.prod-card:hover .hover-reveal{opacity:1!important;}</style>
+
 <script>
-AOS.init({ duration: 1000, once: true });
-
-const slides = document.querySelectorAll('.hero-slide');
-let currentSlide = 0;
-setInterval(() => {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-}, 3000);
-
-function toggleMenu() {
-    document.getElementById('mobile-menu').classList.toggle('open');
-    document.getElementById('hamburger').classList.toggle('open');
-}
-function closeMenu() {
-    document.getElementById('mobile-menu').classList.remove('open');
-    document.getElementById('hamburger').classList.remove('open');
-}
-
-const container = document.getElementById('product-list');
-let allProducts = [];
-let allCategories = [];
-
-async function loadCategories() {
-    try {
-        const res  = await fetch('/api/categories');
-        const json = await res.json();
-        if (!json.success) throw new Error(json.error);
-        allCategories = json.categories || [];
-    } catch (err) {
-        allCategories = [];
-    }
-    renderFilterTabs();
-}
-
-function renderFilterTabs() {
-    const cont = document.getElementById('filter-tabs-container');
-    cont.querySelectorAll('.dynamic-tab').forEach(t => t.remove());
-    allCategories.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'tab-btn dynamic-tab border border-white/10 px-5 py-2 rounded-xl font-bold text-sm transition';
-        btn.textContent = cat.name;
-        btn.onclick = (e) => filterProducts(cat.slug || cat.id, e);
-        cont.appendChild(btn);
-    });
-}
-
-function calcDiscount(product) {
-    const price = parseInt(product.price);
-    const type  = product.discount_type;
-    const val   = parseFloat(product.discount_value || 0);
-    if (!type || type === 'none' || val <= 0) return { finalPrice: price, oldPrice: null, label: null };
-    if (type === 'amount')  return { finalPrice: Math.max(price - val, 0), oldPrice: price, label: `خصم ${val} ج.م` };
-    if (type === 'percent') { const disc = Math.round(price * val / 100); return { finalPrice: Math.max(price - disc, 0), oldPrice: price, label: `خصم ${val}%` }; }
-    return { finalPrice: price, oldPrice: null, label: null };
-}
-
-function renderProducts(list) {
-    container.innerHTML = '';
-    if (!list || list.length === 0) {
-        container.innerHTML = `<p class="col-span-full text-center text-gray-500 py-10 font-bold">لا توجد منتجات متوفرة حالياً.</p>`;
-        return;
-    }
-    list.forEach(product => {
-        const { finalPrice, oldPrice, label } = calcDiscount(product);
-        const name   = product.name;
-        const imgSrc = product.image_url
-            ? product.image_url
-            : `https://placehold.co/300x300/111111/eab308?text=${encodeURIComponent(name.substring(0,12))}`;
-
-        const card = document.createElement('div');
-        card.className = 'product-card rounded-2xl md:rounded-3xl group flex flex-col';
-        card.setAttribute('data-aos', 'fade-up');
-        card.innerHTML = `
-            <div class="absolute top-3 right-3 z-10 flex items-center bg-black/70 px-2 py-1 rounded-full border border-white/10 backdrop-blur-sm">
-                <span class="status-dot dot-online"></span>
-                <span class="text-[8px] md:text-[10px] font-black text-green-400">متوفر الآن</span>
-            </div>
-            ${label ? `<div class="absolute top-3 left-3 z-10"><span class="discount-badge">${label}</span></div>` : ''}
-            <div class="prod-img-wrap relative h-40 sm:h-52 md:h-64 rounded-xl overflow-hidden bg-[#0a0a0a] flex items-center justify-center p-3 md:p-5 m-2 md:m-3">
-                <img src="${imgSrc}"
-                     class="h-full w-full object-contain rounded-lg transform group-hover:scale-110 transition duration-500"
-                     onerror="this.src='https://placehold.co/300x300/111111/eab308?text=ELBNA+STORE'" loading="lazy">
-            </div>
-            <div class="card-body p-3 md:p-5 text-right flex-grow flex flex-col">
-                <h3 class="text-sm md:text-lg font-black mb-2 md:mb-3 tracking-tight leading-snug line-clamp-2">${name}</h3>
-                <div class="mt-auto border-t border-white/5 pt-3">
-                    <div class="flex items-center justify-between mb-3">
-                        <div class="flex flex-col">
-                            ${oldPrice ? `<span class="old-price font-bold">${oldPrice} ج.م</span>` : ''}
-                            <span class="price-big text-xl md:text-2xl font-black text-yellow-500">${finalPrice} <small class="text-[10px] md:text-xs font-bold">ج.م</small></span>
-                        </div>
-                        <div class="bg-yellow-500/10 border border-yellow-500/20 px-2 py-1 rounded-lg">
-                            <span class="text-yellow-500 text-[8px] md:text-[10px] font-bold">${label ? label : 'سعر مميز'}</span>
-                        </div>
-                    </div>
-                    <button class="order-btn gradient-btn w-full py-2.5 md:py-3.5 rounded-xl font-black shadow-lg active:scale-95 text-xs md:text-sm transition"
-                            onclick="saveAndGo(this)">اشتري دلوقتي</button>
-                </div>
-            </div>`;
-        card.querySelector('.order-btn').dataset.name  = name;
-        card.querySelector('.order-btn').dataset.price = finalPrice;
-        card.querySelector('.order-btn').dataset.img   = imgSrc;
-        container.appendChild(card);
-    });
-    if (window.AOS) AOS.refresh();
-}
-
-function filterProducts(category, event) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    if (event && event.target) event.target.classList.add('active');
-    const filtered = category === 'all' ? allProducts : allProducts.filter(p => p.type === category);
-    renderProducts(filtered);
-}
-
-async function loadProducts() {
-    container.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10 font-bold animate-pulse">جارٍ تحميل المنتجات...</p>`;
-    try {
-        const res  = await fetch('/api/products');
-        const json = await res.json();
-        if (!json.success) throw new Error(json.error);
-        allProducts = json.products || [];
-        renderProducts(allProducts);
-    } catch (err) {
-        container.innerHTML = `<p class="col-span-full text-center text-red-400 py-10 font-bold">تعذّر تحميل المنتجات. يرجى المحاولة لاحقاً.</p>`;
-    }
-}
-
-function loadReviews() {
-    const stored = localStorage.getItem('elbna_reviews');
-    if (!stored) return;
-    const reviews = JSON.parse(stored);
-    if (!reviews.length) return;
-    const cont = document.getElementById('reviews-container');
-    cont.innerHTML = '';
-    reviews.forEach((r, i) => {
-        const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-        const div = document.createElement('div');
-        div.className = 'review-card p-6 md:p-8';
-        div.setAttribute('data-aos','fade-up');
-        div.setAttribute('data-aos-delay', (i*100).toString());
-        div.innerHTML = `
-            <div class="flex items-center gap-4 mb-5">
-                <div class="w-11 h-11 bg-yellow-500 rounded-full flex items-center justify-center text-black font-black text-lg">${r.name.charAt(0)}</div>
-                <div><h4 class="font-bold">${r.name}</h4><p class="stars text-xs">${stars}</p></div>
-            </div>
-            <p class="text-gray-400 italic text-sm leading-relaxed">"${r.text}"</p>`;
+const API='';
+function store(){
+  return{
+    products:[],categories:[],activeFilter:'',loadingProds:true,loadingCats:true,
+    mobileMenu:false,cartCount:0,toast:false,
+    async init(){
+      this.cartCount=this.getCart().length;
+      await Promise.all([this.fetchProducts(),this.fetchCategories()]);
+      this.loadReviews();
+    },
+    async fetchProducts(){
+      try{const r=await fetch(`${API}/api/products`);const d=await r.json();this.products=d.products||[];}catch{this.products=[];}
+      this.loadingProds=false;
+    },
+    async fetchCategories(){
+      try{const r=await fetch(`${API}/api/categories`);const d=await r.json();this.categories=d.categories||[];}catch{this.categories=[];}
+      this.loadingCats=false;
+    },
+    get filteredProducts(){
+      if(!this.activeFilter) return this.products;
+      return this.products.filter(p=>p.type===this.activeFilter);
+    },
+    calcPrice(p){
+      if(!p.discount_type||p.discount_type==='none'||!p.discount_value) return p.price;
+      if(p.discount_type==='amount') return Math.max(p.price-p.discount_value,0);
+      if(p.discount_type==='percent') return Math.max(Math.round(p.price-(p.price*p.discount_value/100)),0);
+      return p.price;
+    },
+    hasDiscount(p){return p.discount_type&&p.discount_type!=='none'&&p.discount_value>0;},
+    discountBadge(p){
+      if(!this.hasDiscount(p)) return '';
+      if(p.discount_type==='percent') return `-${p.discount_value}%`;
+      return `-${p.discount_value} ج.م`;
+    },
+    isNew(p){if(!p.created_at) return false; return (Date.now()-new Date(p.created_at))<7*24*60*60*1000;},
+    filterByCategory(slug){this.activeFilter=slug;document.getElementById('products').scrollIntoView({behavior:'smooth'});},
+    goToProduct(p){localStorage.setItem('kadry_product',JSON.stringify(p));window.location.href='product.html';},
+    getCart(){try{return JSON.parse(localStorage.getItem('kadry_cart')||'[]');}catch{return[];}},
+    addToCart(p){
+      const cart=this.getCart();
+      const idx=cart.findIndex(i=>i.id===p.id);
+      if(idx>-1) cart[idx].qty=(cart[idx].qty||1)+1;
+      else cart.push({...p,qty:1});
+      localStorage.setItem('kadry_cart',JSON.stringify(cart));
+      this.cartCount=cart.length;
+      this.toast=true;setTimeout(()=>this.toast=false,2500);
+    },
+    loadReviews(){
+      const stored=localStorage.getItem('kadry_reviews');
+      if(!stored) return;
+      const reviews=JSON.parse(stored);
+      if(!reviews.length) return;
+      const cont=document.getElementById('reviews-container');
+      cont.innerHTML='';
+      reviews.forEach(r=>{
+        const stars='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
+        const div=document.createElement('div');
+        div.className='review-card';
+        div.innerHTML=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;"><div class="review-avatar">${r.name.charAt(0)}</div><div><div style="font-weight:700;font-size:0.95rem;">${r.name}</div><div class="star-filled" style="font-size:0.8rem;">${stars}</div></div></div><p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"${r.text}"</p>`;
         cont.appendChild(div);
-    });
-    if (window.AOS) AOS.refresh();
+      });
+    }
+  }
 }
-
-function saveAndGo(btn) {
-    localStorage.setItem('selectedProduct', btn.dataset.name);
-    localStorage.setItem('selectedPrice',   btn.dataset.price);
-    localStorage.setItem('selectedImg',     btn.dataset.img);
-    window.location.href = 'product.html';
-}
-
-(async () => {
-    await loadCategories();
-    await loadProducts();
-    loadReviews();
-})();
 </script>
 </body>
 </html>

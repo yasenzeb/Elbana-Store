@@ -182,8 +182,27 @@ function productPage() {
     activeImage: '',
     allImages: [],
 
-    init() {
+    async init() {
       try { this.product = JSON.parse(localStorage.getItem('kadry_product') || '{}'); } catch {}
+
+      // If no product in localStorage, try to load by ?id=PRODUCT_ID from API
+      if ((!this.product || !this.product.id) && window.location.search){
+        try{
+          const params=new URLSearchParams(window.location.search);
+          const id=params.get('id');
+          if(id){
+            const res=await fetch(`/api/products/${id}`);
+            if(res.ok){
+              const jd=await res.json();
+              if(jd && jd.product){
+                this.product=jd.product;
+                // cache so navigating back uses same object
+                try{localStorage.setItem('kadry_product',JSON.stringify(this.product));}catch(e){}
+              }
+            }
+          }
+        }catch(e){/* ignore fetch errors */}
+      }
 
       if (Array.isArray(this.product.sizes) && this.product.sizes.length)
         this.sizes = this.product.sizes;

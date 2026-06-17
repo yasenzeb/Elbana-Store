@@ -127,8 +127,13 @@ body{background:var(--navy);color:var(--text);}
 
 /* MARQUEE */
 .marquee-wrap{overflow:hidden;background:linear-gradient(135deg,#000 0%,#1a1a1a 100%);border-bottom:1px solid rgba(255,255,255,0.1);}
-.marquee-inner{display:inline-flex;animation:marquee 24s linear infinite;white-space:nowrap;color:#fff;}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-inner{display:flex;width:max-content;animation:marquee 30s linear infinite;color:#fff;will-change:transform;}
+@keyframes marquee{0%{transform:translateX(0);} 100%{transform:translateX(-50%);}}
+.marquee-wrap:hover .marquee-inner{animation-play-state:paused;}
+
+/* SEARCH BAR */
+.search-input{background:var(--navy3);border:1px solid var(--border);padding:8px 16px;border-radius:2px;font-size:0.85rem;width:200px;transition:all 0.3s;outline:none;}
+.search-input:focus{width:280px;border-color:#000;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
 
 /* NAV */
 .nav-glass{background:var(--navy);border-bottom:1px solid var(--border);}
@@ -136,7 +141,7 @@ body{background:var(--navy);color:var(--text);}
 /* HERO */
 .hero-section{background:linear-gradient(135deg,#fff 0%,#fbfbfb 50%,#f5f5f5 100%);position:relative;overflow:hidden;min-height:100vh;display:flex;align-items:center;}
 .hero-badge{background:linear-gradient(135deg,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.03) 100%);color:var(--text);font-weight:900;padding:6px 18px;border-radius:50px;font-size:0.75rem;display:inline-block;letter-spacing:2px;text-transform:uppercase;border:1.5px solid var(--text);}
-.hero-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:900;line-height:1.05;background:linear-gradient(135deg,#000 0%,#444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-title{font-size:clamp(3rem,8vw,5.5rem);font-weight:900;line-height:1.05;background:linear-gradient(135deg,#000 0%,#444 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.04em;}
 
 /* CTA BUTTONS */
 .hero-cta-main{
@@ -209,10 +214,15 @@ body{background:var(--navy);color:var(--text);}
 .star-filled{color:#000;}
 .review-avatar{width:46px;height:46px;border-radius:0;background:linear-gradient(135deg,#000 0%,#333 100%);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:1rem;flex-shrink:0;}
 
-/* FOOTER */
-footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color:#fff;}
-.social-btn{width:44px;height:44px;border-radius:0;border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.5);transition:all 0.3s;font-size:1rem;}
-.social-btn:hover{background:linear-gradient(135deg,#fff 0%,#e0e0e0 100%);color:#000;border-color:#fff;transform:translateY(-3px);}
+/* FOOTER OVERHAUL - AAA Compliance */
+footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
+.footer-label{font-weight:900;font-size:1rem;color:#000;margin-bottom:16px;letter-spacing:1px;display:block;}
+.footer-text{color:rgba(0,0,0,0.6);font-size:0.88rem;line-height:1.8;}
+.social-btn{width:44px;height:44px;border:1px solid rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.3s;font-size:1.1rem;background:#fff;}
+.social-btn:hover{transform:translateY(-4px);box-shadow:0 8px 15px rgba(0,0,0,0.05);}
+.social-tiktok:hover{color:#000000; border-color:#000000;}
+.social-instagram:hover{color:#E4405F; border-color:#E4405F; background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+.social-facebook:hover{color:#1877F2; border-color:#1877F2;}
 
 /* MOBILE NAV */
 .bottom-nav{background:#fff;border-top:1px solid var(--border);}
@@ -238,23 +248,33 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
 
 <!-- TOP MARQUEE -->
 <div class="marquee-wrap py-2">
-  <div class="marquee-inner text-xs font-black">
-    <span class="px-5">🚚 شحن لجميع المحافظات</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
-    <span class="px-5">✅ أحذية أصلية 100%</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
-    <span class="px-5">🎁 خصم 15% كود: KADRY15</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
-    <span class="px-5">📞 دعم العملاء 24/7</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
-    <span class="px-5">🚚 شحن لجميع المحافظات</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
-    <span class="px-5">✅ أحذية أصلية 100%</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
-    <span class="px-5">🎁 خصم 15% كود: KADRY15</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
-    <span class="px-5">📞 دعم العملاء 24/7</span>
-    <span class="px-3" style="opacity:0.3;">|</span>
+  <div class="marquee-inner text-xs font-black py-2">
+    <!-- المجموعة الأولى: المحتوى الأساسي -->
+    <div class="flex items-center shrink-0">
+      <span class="px-5">✦ شحن لوجستي متكامل لجميع المحافظات</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ معايير الجودة العالمية في كل تفصيلة</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ خدمة عملاء مخصصة على مدار الساعة</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ خامات مختارة بعناية لأعلى مستويات الراحة</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ تجربة تسوق استثنائية وآمنة</span>
+      <span class="px-3 opacity-30">|</span>
+    </div>
+    <!-- المجموعة الثانية: نسخة طبق الأصل تتبع الأولى فوراً -->
+    <div class="flex items-center shrink-0">
+      <span class="px-5">✦ شحن لوجستي متكامل لجميع المحافظات</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ معايير الجودة العالمية في كل تفصيلة</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ خدمة عملاء مخصصة على مدار الساعة</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ خامات مختارة بعناية لأعلى مستويات الراحة</span>
+      <span class="px-3 opacity-30">|</span>
+      <span class="px-5">✦ تجربة تسوق استثنائية وآمنة</span>
+      <span class="px-3 opacity-30">|</span>
+    </div>
   </div>
 </div>
 
@@ -267,17 +287,21 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
         <span style="font-size:0.55rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;">SHOES</span>
       </div>
     </a>
-    <div class="hidden md:flex items-center gap-6 text-sm font-bold">
+    <div class="hidden lg:flex items-center gap-6 text-sm font-bold">
       <a href="index.html" style="color:#000">الرئيسية</a>
       <a href="#products" style="color:var(--muted)" class="hover:text-black transition">المنتجات</a>
       <a href="#about" style="color:var(--muted)" class="hover:text-black transition">من نحن</a>
       <a href="#contact" style="color:var(--muted)" class="hover:text-black transition">تواصل</a>
     </div>
-    <div class="flex items-center gap-3">
-      <a href="cart.html" class="relative p-2">
+    <div class="flex items-center gap-4">
+      <div class="hidden sm:block relative">
+        <input type="text" x-model="searchQuery" placeholder="بحث عن منتج..." class="search-input"/>
+        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-muted text-xs"></i>
+      </div>
+      <button @click="cartOpen=true" class="relative p-2">
         <i class="fas fa-shopping-bag" style="font-size:1.3rem;color:#000"></i>
         <span x-show="cartCount>0" x-text="cartCount" style="position:absolute;top:-2px;left:-2px;background:#000;color:#fff;font-size:0.65rem;font-weight:900;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;"></span>
-      </a>
+      </button>
       <button @click="mobileMenu=!mobileMenu" class="md:hidden p-2" style="color:#000">
         <i :class="mobileMenu?'fa-times':'fa-bars'" class="fas" style="font-size:1.2rem;"></i>
       </button>
@@ -300,17 +324,17 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
   <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,0.045) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
   <div class="max-w-7xl mx-auto w-full py-20 flex flex-col md:flex-row items-center gap-12 relative z-10">
     <div class="flex-1 text-center md:text-right">
-      <div class="hero-badge mb-4">✦ كولكشن 2025</div>
-      <h1 class="hero-title mb-5">KADRY Store<br><span style="font-size:0.52em;font-weight:300;letter-spacing:4px;">أحذية بتفرق</span></h1>
-      <p style="color:var(--muted);font-size:1.05rem;max-width:420px;margin:0 auto 32px;line-height:1.9;" class="md:mr-0 md:ml-auto">
-        كوتشيات وسليبرز وأحذية رياضية بأجمل التصاميم. خامات فاخرة وأسعار تنافسية. توصيل سريع لجميع المحافظات.
+      <div class="hero-badge mb-4">✦ THE 2026 COLLECTION</div>
+      <h1 class="hero-title mb-5">KADRY</h1>
+      <p style="color:var(--muted);font-size:1.05rem;max-width:480px;margin:0 auto 32px;line-height:1.9;" class="md:mr-0 md:ml-auto">
+        نعد صياغة الأناقة المعاصرة من خلال تشكيلة مختارة بعناية من الكوتشيات الفاخرة. نجمع بين الحرفية العالية والاحتياجات اليومية لتقديم تجربة راحة تتجاوز حدود الزمن.
       </p>
       <div class="flex gap-3 justify-center md:justify-start flex-wrap">
         <a href="#products" class="hero-cta-main">
-          <i class="fas fa-shopping-bag"></i> تسوق الآن
+          <i class="fas fa-shopping-bag"></i> استكشف المجموعة
         </a>
         <a href="#about" class="hero-cta-sec">
-          <i class="fas fa-arrow-left" style="font-size:0.75rem;"></i> اعرف أكثر
+          <i class="fas fa-arrow-left" style="font-size:0.75rem;"></i> فلسفتنا
         </a>
       </div>
       <div class="flex items-center gap-6 mt-10 justify-center md:justify-start">
@@ -355,31 +379,31 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
 <section class="features-bar py-5">
   <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
     <div class="feature-item flex items-center gap-3">
-      <i class="fas fa-truck"></i>
-      <div><div class="f-title">شحن سريع</div><div class="f-sub">لجميع المحافظات</div></div>
+      <i class="fas fa-truck-fast"></i>
+      <div><div class="f-title">توزيع لوجستي</div><div class="f-sub">تغطية شاملة لمصر</div></div>
     </div>
     <div class="feature-item flex items-center gap-3">
-      <i class="fas fa-shield-alt"></i>
-      <div><div class="f-title">جودة مضمونة</div><div class="f-sub">أحذية أصلية 100%</div></div>
+      <i class="fas fa-award"></i>
+      <div><div class="f-title">أصالة التصميم</div><div class="f-sub">جودة لا تقبل المساومة</div></div>
     </div>
     <div class="feature-item flex items-center gap-3">
-      <i class="fas fa-exchange-alt"></i>
-      <div><div class="f-title">استبدال سهل</div><div class="f-sub">خلال 14 يوم</div></div>
+      <i class="fas fa-rotate"></i>
+      <div><div class="f-title">سياسة الاستبدال</div><div class="f-sub">مرونة تامة للعملاء</div></div>
     </div>
     <div class="feature-item flex items-center gap-3">
-      <i class="fas fa-headset"></i>
-      <div><div class="f-title">دعم 24/7</div><div class="f-sub">واتساب وفيسبوك</div></div>
+      <i class="fas fa-user-tie"></i>
+      <div><div class="f-title">استشارات فورية</div><div class="f-sub">دعم مهني متخصص</div></div>
     </div>
   </div>
 </section>
 
 <!-- PRODUCTS -->
-<section id="products" class="py-16 px-4" style="background:#fff;">
+<section id="products" class="py-24 px-4" style="background:#fff;">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
       <div>
-        <div class="section-badge">المنتجات</div>
-        <h2 class="section-title">أحدث التصاميم</h2>
+        <div class="section-badge">COLLECTION</div>
+        <h2 class="section-title">التشكيلة الحالية</h2>
         <div class="section-line"></div>
       </div>
       <div class="flex flex-wrap gap-2 items-center">
@@ -414,13 +438,13 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
     <!-- Products Grid -->
     <div x-show="!loadingProds" class="prod-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <template x-for="p in filteredProducts" :key="p.id">
-        <div class="prod-card" @click="goToProduct(p)">
+        <div class="prod-card" @click="goToProduct(p)" style="border-radius:2px;">
           <div class="prod-img-wrap">
             <img :src="p.image_url||'https://placehold.co/400x300/f5f5f5/000000?text=KADRY'" :alt="p.name + ' - كوتشيات كادري ستور الفاخرة'" loading="lazy"/>
-            <div class="badge-new" x-show="isNew(p)">جديد</div>
+            <div class="badge-new" x-show="isNew(p)">NEW</div>
             <div class="badge-sale" x-show="hasDiscount(p)" x-text="discountBadge(p)"></div>
-            <button @click.stop="addToCart(p)" style="position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;font-weight:900;padding:10px;font-size:0.78rem;opacity:0;transition:opacity 0.25s;display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:0.5px;" class="hover-reveal">
-              <i class="fas fa-cart-plus"></i> أضف للسلة
+            <button @click.stop="openSizePicker(p)" style="position:absolute;bottom:0;left:0;right:0;background:#000;color:#fff;font-weight:900;padding:10px;font-size:0.78rem;opacity:0;transition:opacity 0.25s;display:flex;align-items:center;justify-content:center;gap:6px;letter-spacing:1px;" class="hover-reveal">
+              إضافة سريعة
             </button>
           </div>
           <div class="prod-body">
@@ -429,8 +453,8 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
               <span class="prod-old" x-show="hasDiscount(p)" x-text="p.price+' ج.م'"></span>
               <span class="prod-price" x-text="calcPrice(p)+' ج.م'"></span>
             </div>
-            <button @click.stop="addToCart(p)" class="add-btn">
-              <i class="fas fa-shopping-bag" style="font-size:0.8rem;"></i> أضف للسلة
+            <button @click.stop="openSizePicker(p)" class="add-btn" style="text-transform:uppercase;">
+              تحديد المقاس
             </button>
           </div>
         </div>
@@ -444,13 +468,13 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="py-16 md:py-20 px-4" style="background:#f9f9f9;">
+<section id="about" class="py-24 px-4" style="background:#f9f9f9;">
   <div class="max-w-4xl mx-auto text-center">
-    <div class="section-badge">من نحن</div>
-    <h2 class="section-title">KADRY Store</h2>
+    <div class="section-badge">PHILOSOPHY</div>
+    <h2 class="section-title">جوهر KADRY</h2>
     <div class="section-line mx-auto"></div>
-    <p style="color:var(--muted);line-height:1.9;margin-top:20px;font-size:1rem;max-width:600px;margin-left:auto;margin-right:auto;">
-      كادري متجر متخصص في الأحذية العصرية — كوتشيات، سليبرز، وأحذية رياضية. نجيب أجمل التصاميم بأفضل الخامات وبأسعار منافسة. نوصّل لجميع محافظات مصر 🚚
+    <p style="color:var(--muted);line-height:2;margin-top:30px;font-size:1.1rem;max-width:700px;margin-left:auto;margin-right:auto;">
+      نؤمن بأن ركيزة كل رحلة استثنائية تبدأ باختيار الحذاء الأمثل، المصمم بدقة ليمنحك التميز والقدرة على التحمل. التزامنا بالتميز يضمن أن كل تفصيلة، من النعل إلى التصميم الخارجي، تلبي المعايير الصارمة التي يتطلع إليها عشاق الأناقة العصرية.
     </p>
     <div class="grid grid-cols-3 gap-6 mt-10">
       <div style="background:#fff;border:1.5px solid #000;padding:24px;box-shadow:4px 4px 0 rgba(0,0,0,0.06);">
@@ -470,20 +494,20 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
 </section>
 
 <!-- REVIEWS -->
-<section class="py-16 px-4" style="background:#fff;">
+<section class="py-24 px-4" style="background:#fff;">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-10">
-      <div class="section-badge">آراء العملاء</div>
+      <div class="section-badge">TESTIMONIALS</div>
       <h2 class="section-title">ماذا قالوا عنّا</h2>
       <div class="section-line mx-auto"></div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviews-container">
       <div class="review-card">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-          <div class="review-avatar">م</div>
+          <div class="review-avatar" style="background:#000;">م</div>
           <div><div style="font-weight:700;font-size:0.95rem;">محمد أحمد</div><div class="star-filled" style="font-size:0.8rem;">★★★★★</div></div>
         </div>
-        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"جودة الأحذية عالية جداً والتوصيل وصل سريع. سعر ممتاز ومش بيتلاقيش في أي حتة تانية!"</p>
+        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"جودة الخامات تتجاوز التوقعات، وتجربة التسوق كانت سلسة ومهنية للغاية."</p>
       </div>
       <div class="review-card">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
@@ -505,44 +529,44 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
 </main>
 
 <!-- FOOTER -->
-<footer id="contact" class="py-12 px-4">
+<footer id="contact" class="py-20 px-4">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
       <div>
-        <div style="font-size:1.8rem;font-weight:900;color:#fff;letter-spacing:3px;margin-bottom:8px;">KADRY Store</div>
-        <p style="color:rgba(255,255,255,0.5);font-size:0.85rem;line-height:1.8;">أحذية بتفرق. كوتشيات، سليبرز، وأحذية رياضية بأجمل التصاميم وأعلى جودة.</p>
+        <div style="font-size:1.8rem;font-weight:900;color:#000;letter-spacing:3px;margin-bottom:8px;">KADRY</div>
+        <p class="footer-text">إعادة تعريف معايير الأحذية العصرية. نجمع بين الإبداع الفني والجودة التصنيعية لنقدم لك ما تستحقه من تميز.</p>
         <div class="flex gap-3 mt-4">
-          <a href="https://www.tiktok.com/@kadrystore" target="_blank" aria-label="TikTok" class="social-btn"><i class="fab fa-tiktok"></i></a>
-          <a href="https://www.instagram.com/kadry_store2" target="_blank" aria-label="Instagram" class="social-btn"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.facebook.com/share/1EobcF39CM/" target="_blank" aria-label="Facebook" class="social-btn"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.tiktok.com/@kadrystore" target="_blank" aria-label="TikTok" class="social-btn social-tiktok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/kadry_store2" target="_blank" aria-label="Instagram" class="social-btn social-instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/1EobcF39CM/" target="_blank" aria-label="Facebook" class="social-btn social-facebook"><i class="fab fa-facebook"></i></a>
         </div>
       </div>
       <div>
-        <span style="font-weight:900;font-size:1rem;color:#fff;margin-bottom:16px;letter-spacing:1px;display:block;">روابط سريعة</span>
-        <div class="flex flex-col gap-2" style="font-size:0.88rem;color:rgba(255,255,255,0.5);">
-          <a href="#products" class="hover:text-white transition">المنتجات</a>
-          <a href="cart.html" class="hover:text-white transition">السلة</a>
-          <a href="#about" class="hover:text-white transition">من نحن</a>
-          <a href="#contact" class="hover:text-white transition">تواصل معنا</a>
+        <span class="footer-label">DIRECTORY</span>
+        <div class="flex flex-col gap-2 footer-text">
+          <a href="#products" class="hover:text-black transition">المجموعة الحالية</a>
+          <a href="cart.html" class="hover:text-black transition">حقيبة التسوق</a>
+          <a href="#about" class="hover:text-black transition">من نحن</a>
+          <a href="#contact" class="hover:text-black transition">القنوات الرسمية</a>
         </div>
       </div>
       <div>
-        <span style="font-weight:900;font-size:1rem;color:#fff;margin-bottom:16px;letter-spacing:1px;display:block;">تواصل معنا</span>
-        <div class="flex flex-col gap-3" style="font-size:0.85rem;">
-          <a href="https://www.tiktok.com/@kadrystore" target="_blank" class="flex items-center gap-3 hover:text-white transition" style="color:rgba(255,255,255,0.5);">
-            <i class="fab fa-tiktok" style="color:#fff;width:18px;"></i> TikTok
+        <span class="footer-label">CONNECT</span>
+        <div class="flex flex-col gap-3 footer-text">
+          <a href="https://www.tiktok.com/@kadrystore" target="_blank" class="flex items-center gap-3 hover:text-black transition">
+            <i class="fab fa-tiktok" style="width:18px;"></i> TikTok
           </a>
-          <a href="https://www.instagram.com/kadry_store2" target="_blank" class="flex items-center gap-3 hover:text-white transition" style="color:rgba(255,255,255,0.5);">
-            <i class="fab fa-instagram" style="color:#fff;width:18px;"></i> Instagram
+          <a href="https://www.instagram.com/kadry_store2" target="_blank" class="flex items-center gap-3 hover:text-black transition">
+            <i class="fab fa-instagram" style="width:18px;color:#E4405F;"></i> Instagram
           </a>
-          <a href="https://www.facebook.com/share/1EobcF39CM/" target="_blank" class="flex items-center gap-3 hover:text-white transition" style="color:rgba(255,255,255,0.5);">
-            <i class="fab fa-facebook" style="color:#fff;width:18px;"></i> Facebook
+          <a href="https://www.facebook.com/share/1EobcF39CM/" target="_blank" class="flex items-center gap-3 hover:text-black transition">
+            <i class="fab fa-facebook" style="width:18px;color:#1877F2;"></i> Facebook
           </a>
         </div>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(255,255,255,0.1);padding-top:20px;text-align:center;color:rgba(255,255,255,0.3);font-size:0.78rem;">
-      © 2025 KADRY Store. جميع الحقوق محفوظة.
+    <div style="border-top:1px solid var(--border);padding-top:20px;text-align:center;color:rgba(0,0,0,0.3);font-size:0.78rem;">
+      © 2026 KADRY Authority. All Rights Reserved.
     </div>
   </div>
 </footer>
@@ -558,11 +582,11 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
       <i class="fas fa-box" style="font-size:1.1rem;"></i>
       <span style="font-size:0.65rem;font-weight:700;">المنتجات</span>
     </a>
-    <a href="cart.html" class="flex flex-col items-center gap-1 relative" style="color:var(--muted);">
+    <button @click="cartOpen=true" class="flex flex-col items-center gap-1 relative" style="color:var(--muted);">
       <i class="fas fa-shopping-bag" style="font-size:1.1rem;"></i>
       <span style="font-size:0.65rem;font-weight:700;">السلة</span>
       <span x-show="cartCount>0" x-text="cartCount" style="position:absolute;top:-4px;right:-4px;background:#000;color:#fff;font-size:0.6rem;font-weight:900;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;"></span>
-    </a>
+    </button>
     <a href="#contact" class="flex flex-col items-center gap-1" style="color:var(--muted);">
       <i class="fas fa-phone" style="font-size:1.1rem;"></i>
       <span style="font-size:0.65rem;font-weight:700;">تواصل</span>
@@ -571,8 +595,60 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
 </div>
 <div class="h-16 md:hidden"></div>
 
+<!-- CART DRAWER -->
+<div x-show="cartOpen" class="modal-backdrop" @click="cartOpen=false" x-transition.opacity>
+  <div class="cart-drawer" @click.stop x-transition:enter="transition transform ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0">
+    <div class="p-6 border-bottom flex items-center justify-between">
+      <h2 class="font-black text-xl">حقيبة التسوق</h2>
+      <button @click="cartOpen=false" class="text-2xl">&times;</button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-6">
+      <template x-if="cart.length === 0">
+        <div class="text-center py-20 text-muted">الحقيبة فارغة حالياً</div>
+      </template>
+      <template x-for="item in cart" :key="item._key">
+        <div class="flex gap-4 mb-6 pb-6 border-b border-gray-100">
+          <img :src="item.image_url" class="w-20 h-20 object-cover bg-gray-50"/>
+          <div class="flex-1">
+            <h4 class="font-bold text-sm" x-text="item.name"></h4>
+            <p class="text-xs text-muted mt-1" x-text="'مقاس: ' + item.size"></p>
+            <div class="flex items-center justify-between mt-3">
+              <span class="font-black" x-text="item.finalPrice + ' ج.م'"></span>
+              <button @click="removeFromCart(item._key)" class="text-xs text-red-500 underline">إزالة</button>
+            </div>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class="p-6 bg-gray-50 border-t">
+      <div class="flex justify-between mb-4">
+        <span class="font-bold">الإجمالي</span>
+        <span class="font-black text-xl" x-text="cartTotal + ' ج.م'"></span>
+      </div>
+      <a href="checkout.html" class="hero-cta-main w-full justify-center">إتمام الشراء</a>
+    </div>
+  </div>
+</div>
+
+<!-- SIZE PICKER MODAL -->
+<div x-show="sizePickerOpen" class="modal-backdrop" x-transition.opacity>
+  <div class="modal-content" @click.stop>
+    <h3 class="font-black text-lg mb-2" x-text="selectedProd?.name"></h3>
+    <p class="text-sm text-muted mb-6">يرجى اختيار المقاس المطلوب للمتابعة</p>
+    <div class="grid grid-cols-4 gap-2 mb-8">
+      <template x-for="size in [37,38,39,40,41,42,43,44,45]">
+        <div @click="selectedSize=size" :class="selectedSize===size?'active':''" class="size-chip" x-text="size"></div>
+      </template>
+    </div>
+    <div class="flex gap-3">
+      <button @click="sizePickerOpen=false" class="hero-cta-sec flex-1 justify-center">إلغاء</button>
+      <button @click="confirmAddToCart()" class="hero-cta-main flex-1 justify-center">تأكيد</button>
+    </div>
+  </div>
+</div>
+
 <!-- WHATSAPP -->
-<a href="https://wa.me/" target="_blank" aria-label="تواصل معنا عبر واتساب" class="wa-btn"><i class="fab fa-whatsapp"></i></a>
+<a href="https://wa.me/77014738052" target="_blank" aria-label="تواصل معنا عبر واتساب" class="wa-btn"><i class="fab fa-whatsapp"></i></a>
 
 <!-- TOAST -->
 <div x-show="toast" x-transition class="toast-popup"><i class="fas fa-check-circle"></i> تمت الإضافة للسلة!</div>
@@ -583,10 +659,12 @@ footer{background:linear-gradient(135deg,#000 0%,#1a1a1a 50%,#0d0d0d 100%);color
 const API='';
 function store(){
   return{
-    products:[],categories:[],activeFilter:'',loadingProds:true,loadingCats:true,
-    mobileMenu:false,cartCount:0,toast:false,
+    products:[],categories:[],activeFilter:'',searchQuery:'',loadingProds:true,loadingCats:true,
+    mobileMenu:false,cartCount:0,toast:false,cartOpen:false,cart:[],
+    sizePickerOpen:false,selectedProd:null,selectedSize:null,
     async init(){
-      this.cartCount=this.getCart().length;
+      this.cart = this.getCart();
+      this.cartCount = this.cart.length;
       await Promise.all([this.fetchProducts(),this.fetchCategories()]);
       this.loadReviews();
     },
@@ -599,8 +677,13 @@ function store(){
       this.loadingCats=false;
     },
     get filteredProducts(){
-      if(!this.activeFilter) return this.products;
-      return this.products.filter(p=>p.type===this.activeFilter);
+      let prods = this.products;
+      if(this.activeFilter) prods = prods.filter(p=>p.type===this.activeFilter);
+      if(this.searchQuery){
+        const q = this.searchQuery.toLowerCase();
+        prods = prods.filter(p=>p.name.toLowerCase().includes(q));
+      }
+      return prods;
     },
     calcPrice(p){
       if(!p.discount_type||p.discount_type==='none'||!p.discount_value) return p.price;

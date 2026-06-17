@@ -9,7 +9,18 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <style>
-*{font-family:'Cairo',sans-serif;box-sizing:border-box;}
+/* تطبيق خط Cairo على جميع الكلمات والعناصر النصية والمدخلات */
+*, html, body, input, textarea, select, button, span, p, div, h1, h2, h3, a { 
+  font-family: 'Cairo', sans-serif !important; 
+  box-sizing: border-box;
+}
+
+/* استثناء الأيقونات لضمان ظهورها بشكل سليم وعدم اختفائها */
+.fas, .far, .fab, i {
+  font-family: 'Font Awesome 6 Free' !important;
+  font-weight: 900 !important;
+}
+
 :root{
   --navy:#ffffff;--navy2:#f9f9f9;--navy3:#f5f5f5;
   --text:#000000;--muted:rgba(0,0,0,0.5);--border:rgba(0,0,0,0.08);--card:#ffffff;
@@ -18,7 +29,7 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
 .nav-glass{background:#fff;border-bottom:1px solid var(--border);}
 .form-card{background:#fff;border:1px solid var(--border);padding:28px;box-shadow:4px 4px 0 rgba(0,0,0,0.04);}
 .form-label{display:block;font-size:0.78rem;font-weight:900;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1.5px;}
-.form-input{width:100%;background:var(--navy3);border:1.5px solid var(--border);color:#000;font-family:'Cairo',sans-serif;font-size:0.92rem;padding:13px 16px;outline:none;transition:border-color 0.2s;border-radius:2px;}
+.form-input{width:100%;background:var(--navy3);border:1.5px solid var(--border);color:#000;font-size:0.92rem;padding:13px 16px;outline:none;transition:border-color 0.2s;border-radius:2px;}
 .form-input:focus{border-color:#000;}
 .form-input.error{border-color:#ef4444;}
 .form-error{font-size:0.75rem;color:#ef4444;font-weight:700;margin-top:5px;min-height:16px;}
@@ -27,8 +38,9 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
 .pay-option i{font-size:1.3rem;color:var(--muted);}
 .pay-option.active i{color:#000;}
 .summary-card{background:#fff;border:1.5px solid #000;padding:22px;position:sticky;top:80px;box-shadow:4px 4px 0 rgba(0,0,0,0.06);}
-.order-btn{width:100%;background:#25d366;color:#fff;font-weight:900;font-size:1rem;padding:16px;border:none;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:0.5px;box-shadow:4px 4px 0 rgba(37,211,102,0.3);border-radius:2px;}
-.order-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(37,211,102,0.35);}
+.order-btn{width:100%;background:#000;color:#fff;font-weight:900;font-size:1rem;padding:16px;border:none;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:0.5px;box-shadow:4px 4px 0 rgba(0,0,0,0.2);border-radius:2px;}
+.order-btn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,0.3);}
+.order-btn:disabled{opacity:0.7;cursor:not-allowed;}
 .step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:900;}
 .step-active{background:#000;color:#fff;}
 .step-done{background:#f0f0f0;color:#000;border:1.5px solid #000;}
@@ -46,7 +58,7 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
       <span style="color:#000;">السلة</span>
       <span style="margin:0 4px;">—</span>
       <div class="step-dot step-active">2</div>
-      <span style="color:#000;">بيانات التوصيل</span>
+      <span style="color:#000;">الطلب</span>
       <span style="margin:0 4px;">—</span>
       <div class="step-dot step-next">3</div>
       <span>التأكيد</span>
@@ -54,7 +66,8 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
   </div>
 </nav>
 
-<div class="max-w-5xl mx-auto px-4 py-10">
+<!-- FORM AND SUMMARY SECTION -->
+<div x-show="!orderDone" class="max-w-5xl mx-auto px-4 py-10">
   <h1 style="font-size:1.8rem;font-weight:900;margin-bottom:28px;display:flex;align-items:center;gap:10px;">
     <i class="fas fa-map-marker-alt" style="color:#000;"></i> بيانات التوصيل
   </h1>
@@ -71,7 +84,7 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
         <div style="margin-bottom:18px;">
           <label class="form-label">رقم الموبايل *</label>
           <input x-model="form.phone" type="tel" placeholder="01xxxxxxxxx" class="form-input" :class="errors.phone?'error':''" dir="ltr" style="text-align:right;"/>
-          <div class="form-error" x-show="errors.phone">رقم الهاتف مطلوب</div>
+          <div class="form-error" x-show="errors.phone">يرجى إدخال رقم هاتف مصري صحيح</div>
         </div>
         <div style="margin-bottom:18px;">
           <label class="form-label">المحافظة *</label>
@@ -106,7 +119,7 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
             </optgroup>
             <optgroup label="الجنوب والحدود (155 ج.م)">
               <option value="أسوان">أسوان</option>
-              <option value="البحر الأحمر">البحر الأحمر (هرغادة)</option>
+              <option value="البحر الأحمر">البحر الأحمر (الغردقة)</option>
               <option value="الأقصر">الأقصر</option>
               <option value="مطروح">مطروح</option>
               <option value="الوادي الجديد">الوادي الجديد</option>
@@ -140,7 +153,7 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
             </label>
             <label class="pay-option" :class="form.payment==='whatsapp'?'active':''">
               <input type="radio" x-model="form.payment" value="whatsapp" class="hidden"/>
-              <i class="fab fa-whatsapp" style="color:#25d366;"></i>
+              <i class="fas fa-mobile-alt"></i>
               <div>
                 <div style="font-weight:700;font-size:0.88rem;color:#000;">تحويل إلكتروني</div>
                 <div style="font-size:0.72rem;color:var(--muted);">إنستاباي / فودافون</div>
@@ -149,10 +162,14 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
           </div>
         </div>
 
-        <button @click="submitOrder()" class="order-btn">
-          <i class="fab fa-whatsapp" style="font-size:1.3rem;"></i> تأكيد الطلب عبر واتساب
+        <button @click="submitOrder()" class="order-btn" :disabled="isSending">
+          <template x-if="!isSending">
+            <div class="flex items-center gap-2"><i class="fas fa-check-circle" style="font-size:1.3rem;"></i> تأكيد الطلب الآن</div>
+          </template>
+          <template x-if="isSending">
+            <div class="flex items-center gap-2"><i class="fas fa-circle-notch fa-spin"></i> جاري إرسال طلبك...</div>
+          </template>
         </button>
-        <p style="text-align:center;font-size:0.75rem;color:var(--muted);margin-top:10px;">سيتم إرسال تفاصيل طلبك عبر واتساب</p>
       </div>
     </div>
 
@@ -166,7 +183,7 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
               <img :src="item.image_url||'https://placehold.co/50x50/f5f5f5/000000?text=K'" style="width:52px;height:52px;object-fit:cover;flex-shrink:0;background:var(--navy3);border:1px solid var(--border);"/>
               <div style="flex:1;min-width:0;">
                 <p style="font-size:0.82rem;font-weight:700;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" x-text="item.name"></p>
-                <p style="font-size:0.72rem;color:var(--muted);" x-text="(item.size?'مقاس '+item.size+' ':'')+('× '+(item.qty||1))"></p>
+                <p style="font-size:0.72rem;color:var(--muted);" x-text="(item.size?'مقاس '+item.size+' ':'')+(item.color?'| لون '+item.color+' ':'')+('× '+(item.qty||1))"></p>
               </div>
               <span style="font-weight:900;font-size:0.88rem;white-space:nowrap;color:#000;" x-text="((item.finalPrice||item.price)*(item.qty||1))+' ج.م'"></span>
             </div>
@@ -199,6 +216,24 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
   </div>
 </div>
 
+<!-- SUCCESS SCREEN -->
+<div x-show="orderDone" style="display:none;" class="max-w-lg mx-auto px-4 py-20 text-center">
+  <div class="form-card" style="text-align:center; padding: 40px 20px; border-radius: 4px;">
+    <div style="width:70px;height:70px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+      <i class="fas fa-check" style="color:#22c55e;font-size:2rem;"></i>
+    </div>
+    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:10px;">تم استلام طلبك! 🎉</h2>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">رقم الطلب:</p>
+    <div style="background:var(--navy3);padding:10px 20px;border:1.5px solid #000;display:inline-block;margin-bottom:20px;">
+      <span style="font-weight:900;font-size:1.2rem;color:#000;" x-text="orderNumber"></span>
+    </div>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:30px;">سيتواصل معك فريقنا قريباً لتأكيد الطلب وترتيب الشحن.</p>
+    <a href="index.html" class="order-btn" style="text-decoration:none;">
+      العودة للمتجر
+    </a>
+  </div>
+</div>
+
 <script>
 const SHIPPING_MAP={
   'القاهرة':70,'الجيزة':70,
@@ -207,33 +242,75 @@ const SHIPPING_MAP={
   'أسيوط':105,'بني سويف':105,'الفيوم':105,'المنيا':105,'سوهاج':105,
   'أسوان':155,'البحر الأحمر':155,'الأقصر':155,'مطروح':155,'الوادي الجديد':155,'قنا':155,'جنوب سيناء':155
 };
+
 function checkoutPage(){
   return{
-    cart:[],discount:0,shippingCost:0,
+    cart:[],discount:0,shippingCost:0,isSending:false, orderDone: false, orderNumber: '',
     form:{name:'',phone:'',gov:'',address:'',notes:'',payment:'cod'},
     errors:{name:false,phone:false,gov:false,address:false},
     init(){
       try{this.cart=JSON.parse(localStorage.getItem('kadry_cart')||'[]');}catch{}
       this.discount=parseInt(localStorage.getItem('kadry_discount')||'0');
+      
+      if(!this.cart.length) {
+        this.cart = [{ id: 'test_shoe', name: 'حذاء كادري الرياضي', price: 850, qty: 1, size: '43', color: 'أبيض' }];
+      }
     },
     get subtotal(){return this.cart.reduce((s,i)=>s+(i.finalPrice||i.price)*(i.qty||1),0);},
     get total(){return Math.max(0,this.subtotal-this.discount+this.shippingCost);},
     updateShipping(){this.shippingCost=SHIPPING_MAP[this.form.gov]||0;},
     validate(){
       this.errors.name=!this.form.name.trim();
-      this.errors.phone=!this.form.phone.trim();
+      this.errors.phone=!/^01[0125][0-9]{8}$/.test(this.form.phone.trim());
       this.errors.gov=!this.form.gov;
       this.errors.address=!this.form.address.trim();
       return!Object.values(this.errors).some(Boolean);
     },
-    submitOrder(){
+    async submitOrder(){
       if(!this.validate()) return;
-      const items=this.cart.map(i=>`• ${i.name}${i.size?' (مقاس: '+i.size+')':''} × ${i.qty||1} = ${(i.finalPrice||i.price)*(i.qty||1)} ج.م`).join('\n');
-      const msg=`🛒 *طلب جديد من KADRY SHOES*\n\n👤 الاسم: ${this.form.name}\n📱 الموبايل: ${this.form.phone}\n📍 المحافظة: ${this.form.gov}\n🏠 العنوان: ${this.form.address}\n💳 الدفع: ${this.form.payment==='cod'?'عند الاستلام':'تحويل إلكتروني'}\n${this.form.notes?'📝 ملاحظات: '+this.form.notes+'\n':''}\n📦 *المنتجات:*\n${items}\n\n🚚 الشحن: ${this.shippingCost} ج.م\n${this.discount?'🎁 خصم: '+this.discount+' ج.م\n':''}\n💰 *الإجمالي الكلي: ${this.total} ج.م*\n\n✅ طلب عبر موقع KADRY SHOES`;
-      const url=`https://wa.me/?text=${encodeURIComponent(msg)}`;
-      localStorage.removeItem('kadry_cart');
-      localStorage.removeItem('kadry_discount');
-      window.location.href=url;
+      this.isSending = true;
+      
+      this.orderNumber = 'KADRY-' + Math.floor(100000 + Math.random() * 900000);
+      
+      const itemsText = this.cart.map(i => {
+        let details = [];
+        if (i.size) details.push(`مقاس: ${i.size}`);
+        if (i.color) details.push(`لون: ${i.color}`);
+        const detailsStr = details.length ? ` [${details.join(' - ')}]` : '';
+        return `- ${i.name}${detailsStr} (كمية: ${i.qty||1})`;
+      }).join('\n');
+
+      const paymentMethod = this.form.payment === 'cod' ? 'الدفع عند الاستلام' : 'تحويل إلكتروني';
+
+      const message = `🛒 طلب جديد متجر KADRY\n\n🆔 رقم الطلب: ${this.orderNumber}\n👤 الاسم: ${this.form.name.trim()}\n📞 الهاتف: ${this.form.phone.trim()}\n📍 المحافظة: ${this.form.gov}\n🏠 العنوان: ${this.form.address.trim()}\n💳 طريقة الدفع: ${paymentMethod}\n📝 ملاحظات: ${this.form.notes.trim() || 'لا يوجد'}\n\n📦 المنتجات:\n${itemsText}\n\n💰 إجمالي الحساب: ${this.total} ج.م`;
+
+      const pUserKey  = 'uvzzjchk27ebj1dpnzahrqpnzgsqeg'; 
+      const pApiToken = 'akb2ymien31hkq7i63mw9or1pgwszo'; 
+
+      const formData = new FormData();
+      formData.append('token', pApiToken);
+      formData.append('user', pUserKey);
+      formData.append('title', '🛒 طلب جديد KADRY!');
+      formData.append('message', message);
+      formData.append('priority', '1');
+      formData.append('sound', 'cashregister');
+
+      try {
+        await fetch('https://api.pushover.net/1/messages.json', {
+          method: 'POST',
+          body: formData
+        });
+        
+        // إفراغ السلة وعرض شاشة النجاح
+        localStorage.removeItem('kadry_cart');
+        this.orderDone = true;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        console.error('خطأ الإرسال:', err);
+        alert('حدث خطأ أثناء إرسال الطلب، يرجى المحاولة مرة أخرى أو مراسلتنا.');
+      } finally {
+        this.isSending = false;
+      }
     }
   }
 }

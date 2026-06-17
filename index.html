@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 
 <title>كادري ستور - Kadry Store | أفضل متجر أحذية وكوتشيات رجالي في مصر</title>
-<meta name="description" content="تسوق أحدث صيحات الأحذية وكوتشيات رجالي، سليبرز، وأحذية رياضية من كادري ستور ديرب نجم. تشكيلة مميزة ومبتكرة بأعلى جودة وأفضل سعر في مصر مع شحن سريع لجميع المحافظات. اطلب الآن!"/>
+<meta name="description" content="كادري ستور: مكان كل الناس لأحدث صيحات الأحذية وكوتشيات رجالي، سليبرز، وأحذية رياضية. تشكيلة مميزة ومبتكرة بأعلى جودة وأفضل سعر في مصر مع شحن سريع لجميع المحافظات. اطلب الآن!"/>
 <meta name="keywords" content="كادري ستور, متجر كادري, كوتشيات رجالي, أحذية رياضية, سليبرز رجالي, شراء كوتشيات اونلاين, kadry store, kadrystore, كوتشيات مصر, أحذية كاجوال, كوتشيات مستوردة, متجر أحذية ديرب نجم, كوتشيات شبابي, اسعار الكوتشيات في مصر, احذية رجالية, تيك توك كادري ستور, انستجرام كادري ستور, كوتشيات هاى كوبي, أحذية فلات, سليبر جلد رجالي, كوتشي جري, احذية رياضية للياقة البدنية"/>
 <meta name="robots" content="index, follow"/>
 <meta name="author" content="كادري ستور - Kadry Store">
@@ -21,13 +21,13 @@
 <meta property="og:url" content="https://kadry-store.vercel.app/"/>
 <meta property="og:title" content="كادري ستور - Kadry Store | متجر أحذية وكوتشيات رجالي في مصر"/>
 <meta property="og:description" content="تسوق أحدث صيحات الأحذية والكوتشيات الرجالي من كادري ستور. تشكيلة مميزة ومبتكرة بأعلى جودة وأفضل سعر في مصر. اطلب الآن."/>
-<meta property="og:image" content="https://kadry-store.vercel.app/logo.jpeg"/>
+<meta property="og:description" content="كادري ستور: مكان كل الناس لأحدث صيحات الأحذية والكوتشيات الرجالي. تشكيلة مميزة ومبتكرة بأعلى جودة وأفضل سعر في مصر. اطلب الآن."/>
 <meta property="og:site_name" content="Kadry Store"/>
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:url" content="https://kadry-store.vercel.app/"/>
 <meta name="twitter:title" content="كادري ستور - Kadry Store | متجر أحذية وكوتشيات رجالي في مصر"/>
-<meta name="twitter:description" content="تسوق أحدث صيحات الأحذية والكوتشيات الرجالي من كادري ستور. تشكيلة مميزة ومبتكرة بأعلى جودة وأفضل سعر في مصر."/>
+<meta name="twitter:description" content="كادري ستور: مكان كل الناس لأحدث صيحات الأحذية والكوتشيات الرجالي. تشكيلة مميزة ومبتكرة بأعلى جودة وأفضل سعر في مصر."/>
 <meta name="twitter:image" content="https://kadry-store.vercel.app/logo.jpeg"/>
 
 <script type="application/ld+json">
@@ -44,9 +44,8 @@
     "@type": "OnlineStore",
     "name": "كادري ستور - Kadry Store",
     "url": "https://kadry-store.vercel.app/",
-    "logo": "https://kadry-store.vercel.app/logo.jpeg",
+    "description": "كادري ستور: مكان كل الناس. متجر إلكتروني مستقل متخصص في بيع الأحذية العصرية، الكوتشيات الرياضية، كوتشيات كاجوال, سليبرز شبابي، وأحدث صيحات الموضة للأحذية الرجالية بأعلى جودة وأفضل الأسعار في مصر.",
     "image": "https://kadry-store.vercel.app/logo.jpeg",
-    "description": "متجر إلكتروني مستقل متخصص في بيع الأحذية العصرية، الكوتشيات الرياضية، كوتشيات كاجوال, سليبرز شبابي، وأحدث صيحات الموضة للأحذية الرجالية بأعلى جودة وأفضل الأسعار في مصر.",
     "priceRange": "EGP",
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -144,9 +143,17 @@ body{background:var(--navy);color:var(--text);}
 
 /* MARQUEE */
 .marquee-wrap{overflow:hidden;background:linear-gradient(135deg,#000 0%,#1a1a1a 100%);border-bottom:1px solid rgba(255,255,255,0.1);}
-.marquee-inner{display:flex;width:max-content;animation:marquee 30s linear infinite;color:#fff;will-change:transform;}
-@keyframes marquee{0%{transform:translateX(0);} 100%{transform:translateX(-50%);}}
+.marquee-inner{display:flex;min-width:200%;animation:marquee 26s linear infinite;color:#fff;will-change:transform;}
+.marquee-item{display:flex;align-items:center;white-space:nowrap;flex-shrink:0;}
+.marquee-item span{padding:0 14px;}
+.marquee-item span.opacity-30{opacity:.35;}
+@keyframes marquee{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 .marquee-wrap:hover .marquee-inner{animation-play-state:paused;}
+@media(max-width:640px){
+  .marquee-wrap{padding-top:10px;padding-bottom:10px;}
+  .marquee-inner{animation-duration:18s;}
+  .marquee-item span{padding:0 10px;font-size:0.75rem;}
+}
 
 /* SEARCH BAR */
 .search-input{background:var(--navy3);border:1px solid var(--border);padding:8px 16px;border-radius:2px;font-size:0.85rem;width:200px;transition:all 0.3s;outline:none;}
@@ -263,21 +270,12 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
 </head>
 <body x-data="store()" x-init="init()" class="bg-white">
 
-<!-- PRELOADER -->
-<div id="preloader">
-  <div class="loader-content">
-    <img src="https://kadry-store.vercel.app/logo.jpeg" class="loader-logo" alt="Logo">
-    <div class="loader-text">KADRY</div>
-    <div class="loader-text" style="font-size:0.65rem; letter-spacing:4px; margin-top:8px; opacity:0.5;">أصل الشياكة</div>
-  </div>
-</div>
-
-<div id="main-content" class="main-content-fade">
+<div id="main-content" class="main-content-visible">
 
 <!-- TOP MARQUEE -->
 <div class="marquee-wrap py-2">
   <div class="marquee-inner text-xs font-black py-2">
-    <div class="flex items-center shrink-0">
+    <div class="marquee-item">
       <span class="px-5">✦ شحن سريع طيارة لكل المحافظات</span>
       <span class="px-3 opacity-30">|</span>
       <span class="px-5">✦ كواليتي عالمي في كل تفصيلة</span>
@@ -289,7 +287,7 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
       <span class="px-5">✦ تسوق وأنت مطمن 100%</span>
       <span class="px-3 opacity-30">|</span>
     </div>
-    <div class="flex items-center shrink-0">
+    <div class="marquee-item">
       <span class="px-5">✦ شحن لوجستي متكامل لجميع المحافظات</span>
       <span class="px-3 opacity-30">|</span>
       <span class="px-5">✦ معايير الجودة العالمية في كل تفصيلة</span>
@@ -352,7 +350,7 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
     <div class="flex-1 text-center md:text-right">
       <div class="hero-badge mb-4">✦ كوليكشن 2026 الجديد وصل</div>
       <h1 class="hero-title mb-2">KADRY</h1>
-      <div style="font-size:1rem; font-weight:900; letter-spacing:8px; color:var(--text); opacity:0.6; margin-bottom:2rem;" class="md:mr-0 md:ml-auto">أصل الشياكة</div>
+      <div style="font-size:1rem; font-weight:900; letter-spacing:8px; color:var(--text); opacity:0.6; margin-bottom:2rem;" class="md:mr-0 md:ml-auto">مكان كل الناس</div>
       <p style="color:var(--muted);font-size:1.05rem;max-width:480px;margin:0 auto 32px;line-height:1.9;" class="md:mr-0 md:ml-auto">
         في كادري بنقدم لك شياكة وراحة ملهمش مثيل. بنختار كل كوتشي بعناية عشان يناسب ستايلك ويوفرلك أعلى جودة وأحسن سعر في مصر.
       </p>
@@ -407,7 +405,7 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
   <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
     <div class="feature-item flex items-center gap-3">
       <i class="fas fa-truck-fast"></i>
-      <div><div class="f-title">شحن لكل مصر</div><div class="f-sub">أينما كنت نصلك</div></div>
+      <div><div class="f-title">شحن لكل المحافظات</div><div class="f-sub">أينما كنت نصلك</div></div>
     </div>
     <div class="feature-item flex items-center gap-3">
       <i class="fas fa-award"></i>
@@ -546,7 +544,7 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
       <div>
         <div style="font-size:1.8rem;font-weight:900;color:#000;letter-spacing:3px;margin-bottom:8px;">KADRY</div>
-        <p class="footer-text">إعادة تعريف معايير الأحذية العصرية. نجمع بين الإبداع الفني والجودة التصنيعية لنقدم لك ما تستحقه من تميز.</p>
+        <p class="footer-text">بنغير مفهوم الكوتشيات في مصر! جمعنا لك بين الشياكة العصرية وأعلى خامة عشان تلبس اللي بجد تستاهله وتتميز بيه.</p>
         <div class="flex gap-3 mt-4">
           <a href="https://www.tiktok.com/@kadrystore" target="_blank" aria-label="TikTok" class="social-btn social-tiktok"><i class="fab fa-tiktok"></i></a>
           <a href="https://www.instagram.com/kadry_store2" target="_blank" aria-label="Instagram" class="social-btn social-instagram"><i class="fab fa-instagram"></i></a>
@@ -683,14 +681,6 @@ function store(){
     sizePickerOpen:false,selectedProd:null,selectedSize:null,
     get cartTotal(){ return this.cart.reduce((sum, i) => sum + (this.calcPrice(i) * (i.qty || 1)), 0); },
     async init(){
-      // Preloader Logic
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          document.getElementById('preloader').classList.add('loader-hide');
-          document.getElementById('main-content').classList.add('main-content-visible');
-        }, 2500);
-      });
-
       this.cart = this.getCart();
       this.cartCount = this.cart.length;
       await Promise.all([this.fetchProducts(),this.fetchCategories(),this.fetchReviews()]);

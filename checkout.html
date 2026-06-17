@@ -69,7 +69,7 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
 <!-- FORM AND SUMMARY SECTION -->
 <div x-show="!orderDone" class="max-w-5xl mx-auto px-4 py-10">
   <h1 style="font-size:1.8rem;font-weight:900;margin-bottom:28px;display:flex;align-items:center;gap:10px;">
-    <i class="fas fa-map-marker-alt" style="color:#000;"></i> بيانات التوصيل
+    <i class="fas fa-map-marker-alt" style="color:#000;"></i> هنوصلك فين؟
   </h1>
 
   <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -164,10 +164,10 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
 
         <button @click="submitOrder()" class="order-btn" :disabled="isSending">
           <template x-if="!isSending">
-            <div class="flex items-center gap-2"><i class="fas fa-check-circle" style="font-size:1.3rem;"></i> تأكيد الطلب الآن</div>
+            <div class="flex items-center gap-2"><i class="fas fa-check-circle" style="font-size:1.3rem;"></i> يلا بينا.. أكد الطلب</div>
           </template>
           <template x-if="isSending">
-            <div class="flex items-center gap-2"><i class="fas fa-circle-notch fa-spin"></i> جاري إرسال طلبك...</div>
+            <div class="flex items-center gap-2"><i class="fas fa-circle-notch fa-spin"></i> ثواني.. بنسجل طلبك..</div>
           </template>
         </button>
       </div>
@@ -222,12 +222,12 @@ body{background:var(--navy2);color:var(--text);min-height:100vh;}
     <div style="width:70px;height:70px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
       <i class="fas fa-check" style="color:#22c55e;font-size:2rem;"></i>
     </div>
-    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:10px;">تم استلام طلبك! 🎉</h2>
+    <h2 style="font-size:1.8rem;font-weight:900;margin-bottom:10px;">مبروك.. طلبك وصل عندنا! 🎉</h2>
     <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">رقم الطلب:</p>
     <div style="background:var(--navy3);padding:10px 20px;border:1.5px solid #000;display:inline-block;margin-bottom:20px;">
       <span style="font-weight:900;font-size:1.2rem;color:#000;" x-text="orderNumber"></span>
     </div>
-    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:30px;">سيتواصل معك فريقنا قريباً لتأكيد الطلب وترتيب الشحن.</p>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:30px;">فريقنا هيكلمك حالاً عشان نأكد معاك باقي التفاصيل ونبعتلك المنتج لحد البيت.</p>
     <a href="index.html" class="order-btn" style="text-decoration:none;">
       العودة للمتجر
     </a>
@@ -284,8 +284,9 @@ function checkoutPage(){
 
       const message = `🛒 طلب جديد متجر KADRY\n\n🆔 رقم الطلب: ${this.orderNumber}\n👤 الاسم: ${this.form.name.trim()}\n📞 الهاتف: ${this.form.phone.trim()}\n📍 المحافظة: ${this.form.gov}\n🏠 العنوان: ${this.form.address.trim()}\n💳 طريقة الدفع: ${paymentMethod}\n📝 ملاحظات: ${this.form.notes.trim() || 'لا يوجد'}\n\n📦 المنتجات:\n${itemsText}\n\n💰 إجمالي الحساب: ${this.total} ج.م`;
 
-      const pUserKey  = 'uvzzjchk27ebj1dpnzahrqpnzgsqeg'; 
-      const pApiToken = 'akb2ymien31hkq7i63mw9or1pgwszo'; 
+      // تم التحديث هنا بالبيانات الجديدة الخاصة بك
+      const pUserKey  = 'ustiu2wv2wj891y7kpcf9hr1vi4epw'; 
+      const pApiToken = 'ayrevmtzypmb3892yjwauhb5z2fvso'; 
 
       const formData = new FormData();
       formData.append('token', pApiToken);

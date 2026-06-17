@@ -125,6 +125,45 @@ html,body{overflow-x:hidden;width:100%;}
 
 body{background:var(--navy);color:var(--text);}
 
+/* PRELOADER ANIMATION */
+#preloader {
+  position: fixed; inset: 0; background: #000; z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.loader-content { position: relative; display: flex; flex-direction: column; align-items: center; }
+.loader-logo {
+  width: 120px; height: 120px; object-fit: contain;
+  filter: brightness(0) invert(1);
+  animation: assemble 2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+.loader-text {
+  margin-top: 20px; color: #fff; font-weight: 900; letter-spacing: 8px;
+  font-size: 1.2rem; opacity: 0;
+  animation: fadeDraw 1.5s ease-out 0.5s forwards;
+}
+@keyframes assemble {
+  0% { transform: scale(3); filter: blur(20px) brightness(0) invert(1); opacity: 0; clip-path: inset(0 50% 0 50%); }
+  50% { transform: scale(1.1); filter: blur(5px) brightness(0) invert(1); opacity: 0.8; clip-path: inset(0 0 0 0); }
+  70% { transform: scale(1); filter: blur(0px) brightness(0) invert(1); opacity: 1; }
+  100% { transform: scale(1); filter: brightness(1) invert(0); opacity: 1; }
+}
+@keyframes fadeDraw {
+  0% { opacity: 0; letter-spacing: 20px; transform: translateY(10px); }
+  100% { opacity: 1; letter-spacing: 5px; transform: translateY(0); }
+}
+.loader-hide {
+  animation: loaderOut 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+@keyframes loaderOut {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); visibility: hidden; }
+}
+
+/* Entrance for Main Content */
+.main-content-fade { opacity: 0; transform: translateY(20px); transition: all 1s ease-out; }
+.main-content-visible { opacity: 1; transform: translateY(0); }
+
 /* MARQUEE */
 .marquee-wrap{overflow:hidden;background:linear-gradient(135deg,#000 0%,#1a1a1a 100%);border-bottom:1px solid rgba(255,255,255,0.1);}
 .marquee-inner{display:flex;width:max-content;animation:marquee 30s linear infinite;color:#fff;will-change:transform;}
@@ -151,7 +190,7 @@ body{background:var(--navy);color:var(--text);}
 }
 .hero-cta-main:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(0,0,0,0.15); border-radius:4px;}
 .hero-cta-sec{
-  background:linear-gradient(135deg,transparent 0%,rgba(0,0,0,0.03) 100%);border:2px solid #000;color:#000;font-weight:900;padding:14px 34px;
+  background:transparent;border:2px solid #000;color:#000;font-weight:900;padding:14px 34px;
   border-radius:4px;font-size:1rem;transition:all 0.25s;display:inline-flex;align-items:center;gap:10px;
   box-shadow:4px 4px 0 rgba(0,0,0,0.08);
 }
@@ -211,7 +250,7 @@ body{background:var(--navy);color:var(--text);}
 /* REVIEWS */
 .review-card{background:linear-gradient(135deg,#fff 0%,#fafafa 100%);border:1px solid var(--border);border-radius:0;padding:24px;transition:box-shadow 0.3s;}
 .review-card:hover{box-shadow:4px 4px 0 #000;}
-.star-filled{color:#000;}
+.star-filled{color:#FFD700;}
 .review-avatar{width:46px;height:46px;border-radius:0;background:linear-gradient(135deg,#000 0%,#333 100%);display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;font-size:1rem;flex-shrink:0;}
 
 /* FOOTER OVERHAUL - AAA Compliance */
@@ -244,22 +283,33 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
 }
 </style>
 </head>
-<body x-data="store()" x-init="init()">
+<body x-data="store()" x-init="init()" class="bg-white">
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="loader-content">
+    <img src="https://kadry-store.vercel.app/logo.jpeg" class="loader-logo" alt="Logo">
+    <div class="loader-text">KADRY</div>
+    <div class="loader-text" style="font-size:0.65rem; letter-spacing:4px; margin-top:8px; opacity:0.5;">أصل الشياكة</div>
+  </div>
+</div>
+
+<div id="main-content" class="main-content-fade">
 
 <!-- TOP MARQUEE -->
 <div class="marquee-wrap py-2">
   <div class="marquee-inner text-xs font-black py-2">
     <!-- المجموعة الأولى: المحتوى الأساسي -->
     <div class="flex items-center shrink-0">
-      <span class="px-5">✦ شحن لوجستي متكامل لجميع المحافظات</span>
+      <span class="px-5">✦ شحن سريع طيارة لكل المحافظات</span>
       <span class="px-3 opacity-30">|</span>
-      <span class="px-5">✦ معايير الجودة العالمية في كل تفصيلة</span>
+      <span class="px-5">✦ كواليتي عالمي في كل تفصيلة</span>
       <span class="px-3 opacity-30">|</span>
-      <span class="px-5">✦ خدمة عملاء مخصصة على مدار الساعة</span>
+      <span class="px-5">✦ خدمة عملاء معاك في أي وقت</span>
       <span class="px-3 opacity-30">|</span>
-      <span class="px-5">✦ خامات مختارة بعناية لأعلى مستويات الراحة</span>
+      <span class="px-5">✦ خامات أصلية عشان راحتك تهمنا</span>
       <span class="px-3 opacity-30">|</span>
-      <span class="px-5">✦ تجربة تسوق استثنائية وآمنة</span>
+      <span class="px-5">✦ تسوق وأنت مطمن 100%</span>
       <span class="px-3 opacity-30">|</span>
     </div>
     <!-- المجموعة الثانية: نسخة طبق الأصل تتبع الأولى فوراً -->
@@ -324,17 +374,18 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
   <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,0.045) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;"></div>
   <div class="max-w-7xl mx-auto w-full py-20 flex flex-col md:flex-row items-center gap-12 relative z-10">
     <div class="flex-1 text-center md:text-right">
-      <div class="hero-badge mb-4">✦ THE 2026 COLLECTION</div>
-      <h1 class="hero-title mb-5">KADRY</h1>
+      <div class="hero-badge mb-4">✦ كوليكشن 2026 الجديد وصل</div>
+      <h1 class="hero-title mb-2">KADRY</h1>
+      <div style="font-size:1rem; font-weight:900; letter-spacing:8px; color:var(--text); opacity:0.6; margin-bottom:2rem;" class="md:mr-0 md:ml-auto">أصل الشياكة</div>
       <p style="color:var(--muted);font-size:1.05rem;max-width:480px;margin:0 auto 32px;line-height:1.9;" class="md:mr-0 md:ml-auto">
-        نعد صياغة الأناقة المعاصرة من خلال تشكيلة مختارة بعناية من الكوتشيات الفاخرة. نجمع بين الحرفية العالية والاحتياجات اليومية لتقديم تجربة راحة تتجاوز حدود الزمن.
+        في كادري بنقدم لك شياكة وراحة ملهمش مثيل. بنختار كل كوتشي بعناية عشان يناسب ستايلك ويوفرلك أعلى جودة وأحسن سعر في مصر.
       </p>
       <div class="flex gap-3 justify-center md:justify-start flex-wrap">
         <a href="#products" class="hero-cta-main">
-          <i class="fas fa-shopping-bag"></i> استكشف المجموعة
+          <i class="fas fa-shopping-bag"></i> شوف الموديلات
         </a>
         <a href="#about" class="hero-cta-sec">
-          <i class="fas fa-arrow-left" style="font-size:0.75rem;"></i> فلسفتنا
+          <i class="fas fa-arrow-left" style="font-size:0.75rem;"></i> حكايتنا
         </a>
       </div>
       <div class="flex items-center gap-6 mt-10 justify-center md:justify-start">
@@ -358,7 +409,7 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
     <!-- LOGO IMAGE -->
     <div class="flex-shrink-0 relative flex items-center justify-center">
       <div class="shoe-float relative z-10" style="text-align:center;">
-        <div style="width:300px;height:300px;border-radius:8px;border:1.5px solid var(--border);overflow:hidden;background:#f9f9f9;display:flex;align-items:center;justify-content:center;box-shadow:8px 8px 0 rgba(0,0,0,0.06);">
+        <div style="width:300px;height:300px;display:flex;align-items:center;justify-content:center;background:transparent;">
           <img src="https://kadry-store.vercel.app/logo.jpeg" alt="كادري ستور - Kadry Store شرو ريفيو لوجو المتجر الرئيسي" style="width:100%;height:100%;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
           <div style="display:none;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;color:#000;flex-direction:column;gap:8px;">
             <i class="fas fa-store" style="font-size:3rem;"></i>
@@ -367,7 +418,7 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
         </div>
         <div style="position:absolute;top:-12px;right:-12px;background:#000;color:#fff;padding:8px 16px;border-radius:2px;font-size:0.72rem;font-weight:900;letter-spacing:1px;">NEW ARRIVAL</div>
         <div style="position:absolute;bottom:-14px;left:-14px;background:#fff;border:1.5px solid #000;padding:10px 16px;border-radius:2px;font-size:0.8rem;font-weight:700;display:flex;align-items:center;gap:6px;box-shadow:3px 3px 0 rgba(0,0,0,0.08);">
-          <span style="color:#000;">★★★★★</span>
+          <span style="color:#FFD700;">★★★★★</span>
           <span style="color:var(--muted);font-size:0.7rem;">4.9</span>
         </div>
       </div>
@@ -380,19 +431,19 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
   <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-4">
     <div class="feature-item flex items-center gap-3">
       <i class="fas fa-truck-fast"></i>
-      <div><div class="f-title">توزيع لوجستي</div><div class="f-sub">تغطية شاملة لمصر</div></div>
+      <div><div class="f-title">شحن لكل مصر</div><div class="f-sub">أينما كنت نصلك</div></div>
     </div>
     <div class="feature-item flex items-center gap-3">
       <i class="fas fa-award"></i>
-      <div><div class="f-title">أصالة التصميم</div><div class="f-sub">جودة لا تقبل المساومة</div></div>
+      <div><div class="f-title">تصميمات أصلية</div><div class="f-sub">جودة ملهاش زي</div></div>
     </div>
     <div class="feature-item flex items-center gap-3">
       <i class="fas fa-rotate"></i>
-      <div><div class="f-title">سياسة الاستبدال</div><div class="f-sub">مرونة تامة للعملاء</div></div>
+      <div><div class="f-title">سهولة الاستبدال</div><div class="f-sub">حقك مضمون معانا</div></div>
     </div>
     <div class="feature-item flex items-center gap-3">
       <i class="fas fa-user-tie"></i>
-      <div><div class="f-title">استشارات فورية</div><div class="f-sub">دعم مهني متخصص</div></div>
+      <div><div class="f-title">دعم فني 24/7</div><div class="f-sub">جاهزين نرد عليك</div></div>
     </div>
   </div>
 </section>
@@ -470,11 +521,11 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
 <!-- ABOUT -->
 <section id="about" class="py-24 px-4" style="background:#f9f9f9;">
   <div class="max-w-4xl mx-auto text-center">
-    <div class="section-badge">PHILOSOPHY</div>
-    <h2 class="section-title">جوهر KADRY</h2>
+    <div class="section-badge">ABOUT US</div>
+    <h2 class="section-title">ليه تشتري من كادري؟</h2>
     <div class="section-line mx-auto"></div>
     <p style="color:var(--muted);line-height:2;margin-top:30px;font-size:1.1rem;max-width:700px;margin-left:auto;margin-right:auto;">
-      نؤمن بأن ركيزة كل رحلة استثنائية تبدأ باختيار الحذاء الأمثل، المصمم بدقة ليمنحك التميز والقدرة على التحمل. التزامنا بالتميز يضمن أن كل تفصيلة، من النعل إلى التصميم الخارجي، تلبي المعايير الصارمة التي يتطلع إليها عشاق الأناقة العصرية.
+      عارفين إن الشياكة بتبدأ من الرجل، عشان كده بنهتم بكل تفصيلة في الكوتشي من أول النعل لحد التصميم، عشان تمشي براحة وتظهر بأشيك لوك. التزامنا بالجودة هو اللي بيخلينا دايماً اختيارك الأول.
     </p>
     <div class="grid grid-cols-3 gap-6 mt-10">
       <div style="background:#fff;border:1.5px solid #000;padding:24px;box-shadow:4px 4px 0 rgba(0,0,0,0.06);">
@@ -498,31 +549,22 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-10">
       <div class="section-badge">TESTIMONIALS</div>
-      <h2 class="section-title">ماذا قالوا عنّا</h2>
+      <h2 class="section-title">آراء عملائنا</h2>
       <div class="section-line mx-auto"></div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="reviews-container">
-      <div class="review-card">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-          <div class="review-avatar" style="background:#000;">م</div>
-          <div><div style="font-weight:700;font-size:0.95rem;">محمد أحمد</div><div class="star-filled" style="font-size:0.8rem;">★★★★★</div></div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <template x-for="r in reviews" :key="r.id">
+        <div class="review-card">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div class="review-avatar" x-text="r.name.charAt(0)"></div>
+            <div>
+              <div style="font-weight:700;font-size:0.95rem;" x-text="r.name"></div>
+              <div class="star-filled" style="font-size:0.8rem;" x-text="'★'.repeat(r.rating) + '☆'.repeat(5-r.rating)"></div>
+            </div>
+          </div>
+          <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;" x-text="'&quot;' + r.text + '&quot;'"></p>
         </div>
-        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"جودة الخامات تتجاوز التوقعات، وتجربة التسوق كانت سلسة ومهنية للغاية."</p>
-      </div>
-      <div class="review-card">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-          <div class="review-avatar">س</div>
-          <div><div style="font-weight:700;font-size:0.95rem;">سارة علي</div><div class="star-filled" style="font-size:0.8rem;">★★★★★</div></div>
-        </div>
-        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"اشتريت سليبرز والخامة فاخرة جداً. التغليف محترم والتوصيل كان في الميعاد."</p>
-      </div>
-      <div class="review-card">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-          <div class="review-avatar">ع</div>
-          <div><div style="font-weight:700;font-size:0.95rem;">عمر حسن</div><div class="star-filled" style="font-size:0.8rem;">★★★★★</div></div>
-        </div>
-        <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"أحسن متجر أحذية جربته. الاستبدال سهل وخدمة العملاء ممتازة وسريعة الرد."</p>
-      </div>
+      </template>
     </div>
   </div>
 </section>
@@ -596,8 +638,8 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
 <div class="h-16 md:hidden"></div>
 
 <!-- CART DRAWER -->
-<div x-show="cartOpen" class="modal-backdrop" @click="cartOpen=false" x-transition.opacity>
-  <div class="cart-drawer" @click.stop x-transition:enter="transition transform ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0">
+    <div x-show="cartOpen" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]" @click="cartOpen=false" x-transition.opacity x-cloak>
+  <div class="fixed top-0 left-0 h-full w-full max-w-md bg-white shadow-2xl z-[101] flex flex-col" @click.stop x-transition:enter="transition transform ease-out duration-300" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0">
     <div class="p-6 border-bottom flex items-center justify-between">
       <h2 class="font-black text-xl">حقيبة التسوق</h2>
       <button @click="cartOpen=false" class="text-2xl">&times;</button>
@@ -630,14 +672,16 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
   </div>
 </div>
 
-<!-- SIZE PICKER MODAL -->
-<div x-show="sizePickerOpen" class="modal-backdrop" x-transition.opacity>
-  <div class="modal-content" @click.stop>
+<!-- SIZE PICKER MODAL ENHANCED -->
+<div x-show="sizePickerOpen" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[110] flex items-center justify-center p-4" x-transition.opacity x-cloak>
+  <div class="bg-white w-full max-w-sm p-8 relative" @click.stop>
     <h3 class="font-black text-lg mb-2" x-text="selectedProd?.name"></h3>
     <p class="text-sm text-muted mb-6">يرجى اختيار المقاس المطلوب للمتابعة</p>
     <div class="grid grid-cols-4 gap-2 mb-8">
       <template x-for="size in [37,38,39,40,41,42,43,44,45]">
-        <div @click="selectedSize=size" :class="selectedSize===size?'active':''" class="size-chip" x-text="size"></div>
+        <button @click="selectedSize=size" 
+                :class="selectedSize===size ? 'bg-black text-white border-black' : 'border-gray-200 text-gray-400'"
+                class="h-12 border-2 font-bold transition-all hover:border-black flex items-center justify-center" x-text="size"></button>
       </template>
     </div>
     <div class="flex gap-3">
@@ -656,17 +700,25 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
 <style>.prod-card:hover .hover-reveal{opacity:1!important;}</style>
 
 <script>
-const API='';
+const API='https://your-api-endpoint.com'; // استبدل بـ URL الـ API الخاص بك
 function store(){
   return{
-    products:[],categories:[],activeFilter:'',searchQuery:'',loadingProds:true,loadingCats:true,
+    products:[],categories:[],reviews:[],activeFilter:'',searchQuery:'',loadingProds:true,loadingCats:true,
     mobileMenu:false,cartCount:0,toast:false,cartOpen:false,cart:[],
     sizePickerOpen:false,selectedProd:null,selectedSize:null,
+    get cartTotal(){ return this.cart.reduce((sum, i) => sum + (this.calcPrice(i) * (i.qty || 1)), 0); },
     async init(){
+      // Preloader Logic
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.getElementById('preloader').classList.add('loader-hide');
+          document.getElementById('main-content').classList.add('main-content-visible');
+        }, 2500); // وقت الانيميشن
+      });
+
       this.cart = this.getCart();
       this.cartCount = this.cart.length;
-      await Promise.all([this.fetchProducts(),this.fetchCategories()]);
-      this.loadReviews();
+      await Promise.all([this.fetchProducts(),this.fetchCategories(),this.fetchReviews()]);
     },
     async fetchProducts(){
       try{const r=await fetch(`${API}/api/products`);const d=await r.json();this.products=d.products||[];}catch{this.products=[];}
@@ -675,6 +727,20 @@ function store(){
     async fetchCategories(){
       try{const r=await fetch(`${API}/api/categories`);const d=await r.json();this.categories=d.categories||[];}catch{this.categories=[];}
       this.loadingCats=false;
+    },
+    async fetchReviews(){
+      try{
+        const r=await fetch(`${API}/api/reviews`);
+        const d=await r.json();
+        this.reviews=d.reviews||[];
+      }catch{
+        // آراء افتراضية في حالة فشل الاتصال بالـ API
+        this.reviews=[
+          {id:1,name:'محمد أحمد',rating:5,text:'جودة الخامات تتجاوز التوقعات، وتجربة التسوق كانت سلسة ومهنية للغاية.'},
+          {id:2,name:'سارة علي',rating:5,text:'اشتريت سليبرز والخامة فاخرة جداً. التغليف محترم والتوصيل كان في الميعاد.'},
+          {id:3,name:'عمر حسن',rating:5,text:'أحسن متجر أحذية جربته. الاستبدال سهل وخدمة العملاء ممتازة وسريعة الرد.'}
+        ];
+      }
     },
     get filteredProducts(){
       let prods = this.products;
@@ -701,30 +767,35 @@ function store(){
     filterByCategory(slug){this.activeFilter=slug;document.getElementById('products').scrollIntoView({behavior:'smooth'});},
     goToProduct(p){localStorage.setItem('kadry_product',JSON.stringify(p));window.location.href='product.html';},
     getCart(){try{return JSON.parse(localStorage.getItem('kadry_cart')||'[]');}catch{return[];}},
-    addToCart(p){
-      const cart=this.getCart();
-      const idx=cart.findIndex(i=>i.id===p.id);
-      if(idx>-1) cart[idx].qty=(cart[idx].qty||1)+1;
-      else cart.push({...p,qty:1});
-      localStorage.setItem('kadry_cart',JSON.stringify(cart));
-      this.cartCount=cart.length;
-      this.toast=true;setTimeout(()=>this.toast=false,2500);
+    openSizePicker(p){
+      this.selectedProd = p;
+      this.selectedSize = null;
+      this.sizePickerOpen = true;
     },
-    loadReviews(){
-      const stored=localStorage.getItem('kadry_reviews');
-      if(!stored) return;
-      const reviews=JSON.parse(stored);
-      if(!reviews.length) return;
-      const cont=document.getElementById('reviews-container');
-      cont.innerHTML='';
-      reviews.forEach(r=>{
-        const stars='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
-        const div=document.createElement('div');
-        div.className='review-card';
-        div.innerHTML=`<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;"><div class="review-avatar">${r.name.charAt(0)}</div><div><div style="font-weight:700;font-size:0.95rem;">${r.name}</div><div class="star-filled" style="font-size:0.8rem;">${stars}</div></div></div><p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">"${r.text}"</p>`;
-        cont.appendChild(div);
-      });
-    }
+    confirmAddToCart(){
+      if(!this.selectedSize) { alert('من فضلك اختر المقاس أولاً'); return; }
+      const p = this.selectedProd;
+      const itemKey = `${p.id}-${this.selectedSize}`;
+      const idx = this.cart.findIndex(i => i._key === itemKey);
+      
+      if(idx > -1) {
+        this.cart[idx].qty++;
+      } else {
+        this.cart.push({
+          ...p,
+          _key: itemKey,
+          size: this.selectedSize,
+          qty: 1,
+          finalPrice: this.calcPrice(p)
+        });
+      }
+      this.saveCart();
+      this.sizePickerOpen = false;
+      this.toast = true;
+      setTimeout(() => this.toast = false, 2500);
+    },
+    removeFromCart(key){ this.cart = this.cart.filter(i => i._key !== key); this.saveCart(); },
+    saveCart(){ localStorage.setItem('kadry_cart', JSON.stringify(this.cart)); this.cartCount = this.cart.length; }
   }
 }
 </script>

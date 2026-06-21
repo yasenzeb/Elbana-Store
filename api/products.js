@@ -1,24 +1,27 @@
 import { createClient } from '@supabase/supabase-js';
 
+const ALLOWED_ORIGIN = 'https://kadry1.com';
+
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 function requireAdmin(req) {
-  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '147258';
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+  if (!ADMIN_PASSWORD) return false;
   return req.headers['x-admin-password'] === ADMIN_PASSWORD;
 }
 
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
     res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type,x-admin-password');
     return res.status(204).end();
   }
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
 
   try {
     if (req.method === 'GET') {

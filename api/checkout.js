@@ -1,11 +1,40 @@
+const ALLOWED_ORIGIN = 'https://kadry1.com';
+
+// In-memory rate limiter: prevent notification flooding.
+// Max 20 notifications per IP per 10 minutes.
+const notifyTracker = new Map();
+const MAX_NOTIFY    = 20;
+const NOTIFY_WINDOW = 10 * 60 * 1000; // 10 minutes
+
+function checkNotifyLimit(ip) {
+  const now   = Date.now();
+  const entry = notifyTracker.get(ip) || { count: 0, resetAt: now + NOTIFY_WINDOW };
+
+  if (now > entry.resetAt) {
+    notifyTracker.set(ip, { count: 1, resetAt: now + NOTIFY_WINDOW });
+    return true;
+  }
+
+  entry.count += 1;
+  notifyTracker.set(ip, entry);
+  return entry.count <= MAX_NOTIFY;
+}
+
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(204).end();
 
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
+  }
+
+  const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim() || req.socket?.remoteAddress || 'unknown';
+
+  if (!checkNotifyLimit(ip)) {
+    // Silently drop — don't reveal rate limiting details to potential abusers
+    return res.status(200).json({ success: true, notified: false });
   }
 
   const P_USER  = process.env.PUSHOVER_USER;

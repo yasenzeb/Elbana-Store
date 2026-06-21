@@ -3,148 +3,105 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>KADRY — السلة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+<title>KADRY Store - السلة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-<style>
-*{font-family:'Cairo',sans-serif;box-sizing:border-box;}
-:root{
-  --navy:#ffffff;
-  --navy2:#ffffff;
-  --navy3:#f5f5f5;
-  --blue:#000000;
-  --blue2:#000000;
-  --blue3:#000000;
-  --accent:#000000;
-  --accent2:rgba(0,0,0,0.6);
-  --text:#000000;
-  --muted:rgba(0,0,0,0.5);
-  --border:rgba(0,0,0,0.08);
-  --card:rgba(255,255,255,0.98);
-}
-body{background:var(--navy);color:var(--text);min-height:100vh;}
-.nav-glass{background:var(--navy);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.cart-item{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:16px;display:flex;gap:14px;align-items:center;transition:border-color 0.2s;}
-.cart-item:hover{border-color:rgba(0,0,0,0.15);}
-.cart-img{width:90px;height:90px;border-radius:14px;object-fit:cover;flex-shrink:0;background:var(--navy3);}
-.qty-btn{width:34px;height:34px;border-radius:8px;background:var(--navy3);border:1px solid var(--border);color:var(--text);font-weight:900;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
-.qty-btn:hover{background:#000;color:#fff;border-color:#000;}
-.remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;padding:8px;font-size:1rem;transition:color 0.2s;flex-shrink:0;}
-.remove-btn:hover{color:#ef4444;}
-.summary-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:24px;position:sticky;top:80px;}
-.coupon-input{background:var(--navy3);border:1px solid var(--border);border-radius:12px;padding:10px 14px;color:var(--text);font-family:'Cairo',sans-serif;font-size:0.9rem;width:100%;outline:none;transition:border-color 0.2s;}
-.coupon-input:focus{border-color:#000;}
-.btn-coupon{background:linear-gradient(135deg,#000 0%,#2a2a2a 100%);color:#fff;font-weight:700;font-size:0.85rem;padding:10px 20px;border-radius:12px;border:none;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
-.btn-coupon:hover{background:linear-gradient(135deg,transparent 0%,rgba(0,0,0,0.03) 100%);color:#000;}
-.checkout-btn{width:100%;background:linear-gradient(135deg,#000 0%,#2a2a2a 100%);color:#fff;font-weight:900;font-size:1.05rem;padding:16px;border-radius:14px;border:none;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:10px;}
-.checkout-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,0.15);}
-.continue-btn{width:100%;background:var(--navy3);border:1px solid var(--border);color:var(--muted);font-weight:700;font-size:0.9rem;padding:13px;border-radius:14px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;}
-.continue-btn:hover{border-color:#000;color:#000;}
-</style>
+<style>* { font-family:'Cairo',sans-serif; }</style>
 </head>
-<body x-data="cartPage()" x-init="init()">
+<body class="bg-gray-50 text-black" x-data="cartPage()" x-init="init()">
 
-<!-- NAV -->
-<nav class="nav-glass sticky top-0 z-50">
-  <div class="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-    <a href="index.html" style="font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:3px;">KADRY</a>
-    <a href="index.html" style="font-size:0.85rem;font-weight:700;color:var(--muted);" class="hover:text-white transition"><i class="fas fa-arrow-right ml-1"></i>متابعة التسوق</a>
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="bg-black rounded-lg px-3 py-1 flex items-center gap-1">
+        <span class="text-white font-black text-lg tracking-widest">KADRY</span>
+        <span class="text-white font-black text-xl">Store</span>
+      </div>
+    </a>
+    <a href="index.html" class="text-sm font-bold text-gray-600 hover:text-green-500"><i class="fas fa-arrow-right ml-1"></i>متابعة التسوق</a>
   </div>
 </nav>
 
 <div class="max-w-6xl mx-auto px-4 py-10">
-  <h1 style="font-size:1.8rem;font-weight:900;margin-bottom:28px;display:flex;align-items:center;gap:10px;">
-    <i class="fas fa-shopping-bag" style="color:#000;"></i> سلة المشتريات
-    <span style="font-size:1rem;font-weight:700;color:var(--muted);" x-text="'('+cart.length+' منتج)'"></span>
+  <h1 class="text-3xl font-black mb-8 flex items-center gap-3">
+    <i class="fas fa-shopping-cart text-green-500"></i> سلة المشتريات
+    <span class="text-gray-400 text-lg font-bold" x-text="'('+cart.length+' منتج)'"></span>
   </h1>
 
-  <!-- EMPTY -->
+  <!-- Empty -->
   <template x-if="cart.length===0">
-    <div style="text-align:center;padding:80px 20px;">
-      <div style="font-size:5rem;margin-bottom:16px;">🛍️</div>
-      <p style="font-size:1.5rem;font-weight:900;margin-bottom:8px;">السلة فاضية!</p>
-      <p style="color:var(--muted);margin-bottom:24px;">أضف منتجات لتبدأ رحلة التسوق</p>
-      <a href="index.html" style="background:linear-gradient(135deg,#000 0%,#2a2a2a 100%);color:#fff;font-weight:900;padding:14px 36px;border-radius:50px;display:inline-flex;align-items:center;gap:8px;">
-        <i class="fas fa-shopping-bag"></i> تسوق الآن
-      </a>
+    <div class="text-center py-24">
+      <div class="text-8xl mb-6">🛒</div>
+      <p class="text-2xl font-black mb-3">السلة فاضية!</p>
+      <p class="text-gray-500 mb-8">اضغط على أي منتج وأضفه للسلة</p>
+      <a href="index.html" class="bg-black text-white font-black px-10 py-4 rounded-full hover:bg-green-500 hover:text-black transition text-lg">تسوق الآن</a>
     </div>
   </template>
 
-  <!-- HAS ITEMS -->
   <template x-if="cart.length>0">
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <!-- ITEMS -->
-    <div class="lg:col-span-2 flex flex-col gap-3">
+    <!-- Cart Items -->
+    <div class="lg:col-span-2 space-y-4">
       <template x-for="(item,idx) in cart" :key="idx">
-        <div class="cart-item">
-          <img :src="item.image_url||'https://placehold.co/90x90/1a2a6c/c9a84c?text=K'" class="cart-img" :alt="item.name"/>
-          <div style="flex:1;min-width:0;">
-            <h3 style="font-weight:700;font-size:0.92rem;line-height:1.4;margin-bottom:6px;color:#fff;" x-text="item.name"></h3>
-            <div style="display:flex;gap:10px;font-size:0.75rem;color:var(--muted);margin-bottom:10px;flex-wrap:wrap;">
-              <span x-show="item.size"><i class="fas fa-ruler-horizontal" style="color:var(--accent);margin-left:4px;"></i>مقاس: <b x-text="item.size"></b></span>
-              <span x-show="item.color"><i class="fas fa-palette" style="color:var(--accent);margin-left:4px;"></i>لون: <b x-text="item.color"></b></span>
+        <div class="bg-white rounded-2xl p-4 flex items-center gap-4 shadow-sm border border-gray-100">
+          <img :src="item.image_url || 'https://placehold.co/100x100/111/22c55e?text=M'"
+               :alt="item.name" class="w-24 h-24 object-cover rounded-xl flex-shrink-0"/>
+          <div class="flex-1 min-w-0">
+            <h3 class="font-black text-base leading-snug mb-1 truncate" x-text="item.name"></h3>
+            <div class="flex gap-3 text-xs text-gray-500 mb-2 flex-wrap">
+              <span x-show="item.size"><i class="fas fa-ruler-horizontal ml-1 text-black"></i>مقاس: <b x-text="item.size"></b></span>
+              <span x-show="item.color"><i class="fas fa-palette ml-1 text-black"></i>لون: <b x-text="item.color"></b></span>
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-              <span style="font-weight:900;font-size:1.1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;" x-text="(item.finalPrice||item.price)+' ج.م'"></span>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <button class="qty-btn" @click="changeQty(idx,-1)">−</button>
-                <span style="min-width:30px;text-align:center;font-weight:900;" x-text="item.qty||1"></span>
-                <button class="qty-btn" @click="changeQty(idx,1)">+</button>
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <span class="text-black font-black text-lg" x-text="'EGP '+(item.finalPrice||item.price)"></span>
+              <!-- Qty controls -->
+              <div class="flex items-center gap-2">
+                <button @click="changeQty(idx,-1)" class="w-8 h-8 bg-gray-100 rounded-lg font-black hover:bg-gray-200 transition">−</button>
+                <span class="w-8 text-center font-bold" x-text="item.qty||1"></span>
+                <button @click="changeQty(idx,1)" class="w-8 h-8 bg-gray-100 rounded-lg font-black hover:bg-gray-200 transition">+</button>
               </div>
-              <span style="font-weight:900;font-size:0.95rem;color:#000;" x-text="((item.finalPrice||item.price)*(item.qty||1))+' ج.م'"></span>
+              <span class="font-black text-black" x-text="'EGP '+((item.finalPrice||item.price)*(item.qty||1))"></span>
             </div>
           </div>
-          <button class="remove-btn" @click="removeItem(idx)"><i class="fas fa-trash-alt"></i></button>
+          <button @click="removeItem(idx)" class="text-gray-300 hover:text-red-500 transition ml-2 flex-shrink-0">
+            <i class="fas fa-trash text-lg"></i>
+          </button>
         </div>
       </template>
     </div>
 
-    <!-- SUMMARY -->
+    <!-- Summary -->
     <div class="lg:col-span-1">
-      <div class="summary-card">
-        <h2 style="font-size:1.1rem;font-weight:900;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border);">ملخص الطلب</h2>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 sticky top-24">
+        <h2 class="text-xl font-black mb-6 border-b pb-4">ملخص الطلب</h2>
 
-        <!-- COUPON -->
-        <div style="margin-bottom:16px;">
-          <p style="font-weight:700;font-size:0.85rem;margin-bottom:8px;">كود خصم:</p>
-          <div style="display:flex;gap:8px;">
-            <input x-model="coupon" type="text" placeholder="KADRY15" class="coupon-input"/>
-            <button @click="applyCoupon()" class="btn-coupon">تطبيق</button>
+        <div class="space-y-3 text-sm mb-6">
+          <div class="flex justify-between">
+            <span class="text-gray-500">المجموع الفرعي</span>
+            <span class="font-bold" x-text="'EGP '+subtotal"></span>
           </div>
-          <p x-show="couponMsg" :style="couponOk?'color:#22c55e':'color:#ef4444'" style="font-size:0.78rem;font-weight:700;margin-top:6px;" x-text="couponMsg"></p>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:10px;font-size:0.88rem;margin-bottom:16px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:var(--muted);">المجموع الفرعي</span>
-            <span style="font-weight:700;" x-text="subtotal+' ج.م'"></span>
+          <div class="flex justify-between">
+            <span class="text-gray-500">الشحن</span>
+            <span class="font-bold text-green-600">حسب المحافظه</span>
           </div>
-          <div x-show="discount>0" style="display:flex;justify-content:space-between;align-items:center;color:#22c55e;">
-            <span>خصم الكود</span>
-            <span style="font-weight:700;" x-text="'- '+discount+' ج.م'"></span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;">
-            <span style="color:var(--muted);">الشحن</span>
-            <span style="color:#22c55e;font-weight:700;">يُحدد عند الطلب</span>
-          </div>
-          <div style="border-top:1px solid var(--border);padding-top:10px;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:1rem;font-weight:900;">الإجمالي</span>
-            <span style="font-size:1.3rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;" x-text="(subtotal-discount)+' ج.م'"></span>
+          <div class="border-t pt-3 flex justify-between text-xl font-black">
+            <span>الإجمالي</span>
+            <span class="text-green-600" x-text="'EGP '+subtotal"></span>
           </div>
         </div>
 
-        <a href="checkout.html" class="checkout-btn" style="text-decoration:none;">
-          <i class="fas fa-lock"></i> إتمام الطلب
+        <a href="checkout.html" class="block w-full bg-black text-white font-black py-4 rounded-2xl text-center hover:bg-green-500 hover:text-black transition text-lg mb-3">
+          <i class="fas fa-credit-card ml-2"></i>إتمام الطلب
         </a>
-        <button class="continue-btn mt-3" @click="window.location.href='index.html'">
-          <i class="fas fa-arrow-right"></i> متابعة التسوق
-        </button>
+        <a href="index.html" class="block w-full bg-gray-100 text-black font-bold py-3 rounded-2xl text-center hover:bg-gray-200 transition text-sm">
+          متابعة التسوق
+        </a>
 
-        <div style="display:flex;justify-content:center;gap:16px;margin-top:14px;font-size:0.75rem;color:var(--muted);">
-          <span><i class="fas fa-lock" style="color:var(--accent);margin-left:4px;"></i>دفع آمن</span>
-          <span><i class="fas fa-truck" style="color:var(--accent);margin-left:4px;"></i>شحن سريع</span>
+        <div class="flex justify-center gap-4 mt-4 text-xs text-gray-400">
+          <span><i class="fas fa-lock ml-1 text-black"></i>دفع آمن</span>
+          <span><i class="fas fa-truck ml-1 text-black"></i>شحن سريع</span>
         </div>
       </div>
     </div>
@@ -153,24 +110,30 @@ body{background:var(--navy);color:var(--text);min-height:100vh;}
 </div>
 
 <script>
-function cartPage(){
-  return{
-    cart:[],coupon:'',couponMsg:'',couponOk:false,discount:0,
-    init(){
-      try{this.cart=JSON.parse(localStorage.getItem('kadry_cart')||'[]');}catch{this.cart=[];}
-      this.discount=parseInt(localStorage.getItem('kadry_discount')||'0');
+function cartPage() {
+  return {
+    cart: [],
+
+    init() {
+      try { this.cart = JSON.parse(localStorage.getItem('kadry_cart')||'[]'); } catch { this.cart=[]; }
     },
-    get subtotal(){return this.cart.reduce((s,i)=>s+(i.finalPrice||i.price)*(i.qty||1),0);},
-    changeQty(idx,d){this.cart[idx].qty=Math.max(1,(this.cart[idx].qty||1)+d);this.save();},
-    removeItem(idx){this.cart.splice(idx,1);this.save();},
-    save(){localStorage.setItem('kadry_cart',JSON.stringify(this.cart));},
-    applyCoupon(){
-      const c=this.coupon.trim().toUpperCase();
-      if(c==='KADRY15'){
-        this.discount=Math.round(this.subtotal*0.15);
-        this.couponMsg='🎉 تم تطبيق خصم 15%!';this.couponOk=true;
-        localStorage.setItem('kadry_discount',this.discount);
-      }else{this.discount=0;this.couponMsg='❌ كود غير صحيح';this.couponOk=false;}
+
+    get subtotal() {
+      return this.cart.reduce((s,i) => s + (i.finalPrice||i.price)*(i.qty||1), 0);
+    },
+
+    changeQty(idx, delta) {
+      this.cart[idx].qty = Math.max(1, (this.cart[idx].qty||1)+delta);
+      this.save();
+    },
+
+    removeItem(idx) {
+      this.cart.splice(idx,1);
+      this.save();
+    },
+
+    save() {
+      localStorage.setItem('kadry_cart', JSON.stringify(this.cart));
     }
   }
 }

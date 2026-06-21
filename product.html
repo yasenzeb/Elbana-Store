@@ -3,16 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>KADRY Store — تفاصيل المنتج</title>
+<title>KADRY Store - تفاصيل المنتج</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <style>
-:root{ --accent:#000000; --accent2:rgba(0,0,0,0.6); }
 * { font-family:'Cairo',sans-serif; }
-::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-thumb{background:#000000;border-radius:3px}
-.thumb-active { border-color: #000000 !important; }
+::-webkit-scrollbar{width:6px} ::-webkit-scrollbar-thumb{background:#22c55e;border-radius:3px}
+.thumb-active { border-color: #22c55e !important; }
 .main-img-wrap { transition: opacity .2s; }
 .thumb-img { transition: all .2s; cursor: pointer; }
 .thumb-img:hover { transform: scale(1.05); }
@@ -23,7 +22,9 @@
 <!-- NAVBAR -->
 <nav class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 flex items-center justify-between h-16">
-    <a href="index.html" style="font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:3px;">KADRY Store</a>
+    <a href="index.html" class="flex items-center gap-2">
+      <div class="text-black font-black text-lg tracking-widest">KADRY</div>
+    </a>
     <div class="flex items-center gap-4">
       <a href="index.html" class="text-sm font-bold text-gray-600 hover:text-black"><i class="fas fa-home ml-1"></i>الرئيسية</a>
       <a href="cart.html" class="relative">
@@ -35,8 +36,8 @@
 </nav>
 
 <!-- BREADCRUMB -->
-  <div class="max-w-7xl mx-auto px-4 py-4 text-sm text-gray-400">
-  <a href="index.html" class="hover:text-black">الرئيسية</a>
+<div class="max-w-7xl mx-auto px-4 py-4 text-sm text-gray-400">
+  <a href="index.html" class="hover:text-green-500">الرئيسية</a>
   <span class="mx-2">/</span>
   <span class="text-black font-bold" x-text="product.name || 'المنتج'"></span>
 </div>
@@ -50,7 +51,7 @@
     <div>
       <!-- Main Image -->
       <div class="relative rounded-3xl overflow-hidden bg-gray-50 border border-gray-100 mb-3 main-img-wrap" style="min-height:350px">
-        <img :src="activeImage || 'https://placehold.co/600x500/111/000000?text=KADRY'"
+        <img :src="activeImage || 'https://placehold.co/600x500/111/000000?text=K'"
              :alt="product.name" class="w-full object-cover" style="min-height:350px;max-height:480px;object-fit:contain"/>
         <template x-if="product.discount_type && product.discount_value">
           <span class="absolute top-4 right-4 bg-black text-white font-black px-4 py-2 rounded-full text-lg"
@@ -58,7 +59,7 @@
         </template>
       </div>
       <!-- Thumbnails -->
-          <div x-show="allImages.length > 1" class="flex gap-2 flex-wrap">
+      <div x-show="allImages.length > 1" class="flex gap-2 flex-wrap">
         <template x-for="(img, idx) in allImages" :key="idx">
           <div @click="activeImage=img"
                :class="activeImage===img ? 'thumb-active border-2' : 'border border-gray-200'"
@@ -90,12 +91,12 @@
         <p class="font-black mb-3">المقاس:</p>
         <div class="flex gap-2 flex-wrap">
           <template x-for="s in sizes">
-            <button @click="selectedSize=s"
-              :class="selectedSize===s ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
+              <button @click="selectedSize=s; sizeError=false"
+                :class="selectedSize===s ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
               class="w-12 h-12 rounded-xl border-2 font-bold hover:border-black transition text-sm" x-text="s"></button>
           </template>
         </div>
-        <p x-show="sizeError" class="text-red-500 text-sm mt-2 font-bold">⚠️ معلش.. اختار المقاس الأول يا بطل</p>
+        <p x-show="sizeError" class="text-red-500 text-sm mt-2 font-bold">⚠️ يجب اختيار المقاس أولاً</p>
       </div>
 
       <!-- Color -->
@@ -103,13 +104,14 @@
         <p class="font-black mb-3">اللون:</p>
         <div class="flex gap-3 flex-wrap">
           <template x-for="c in colors">
-            <button @click="selectedColor=c.name"
+            <button @click="selectedColor=c.name; colorError=false"
               :style="'background:'+c.hex"
               :class="selectedColor===c.name ? 'ring-4 ring-black ring-offset-2 scale-110' : ''"
               class="w-8 h-8 rounded-full border border-gray-200 transition-all" :title="c.name"></button>
           </template>
         </div>
         <p x-show="selectedColor" class="text-sm text-gray-500 mt-2" x-text="'اللون المختار: '+selectedColor"></p>
+        <p x-show="colorError" class="text-red-500 text-sm mt-2 font-bold">⚠️ يجب اختيار اللون أولاً</p>
       </div>
 
       <!-- Qty -->
@@ -123,7 +125,7 @@
       </div>
 
       <!-- Total -->
-      <div class="bg-gray-50 rounded-2xl p-4 mb-6">
+        <div class="bg-gray-50 rounded-2xl p-4 mb-6">
         <div class="flex justify-between items-center">
           <span class="text-gray-600 font-bold">الإجمالي:</span>
           <span class="text-2xl font-black text-black" x-text="'EGP '+(calcPrice()*qty)"></span>
@@ -133,17 +135,17 @@
       <!-- Buttons -->
       <div class="flex gap-3 flex-wrap">
         <button @click="addToCart()"
-          class="flex-1 bg-black text-white font-black py-4 rounded-2xl hover:opacity-90 transition text-lg flex items-center justify-center gap-2">
+          class="flex-1 bg-black text-white font-black py-4 rounded-2xl hover:bg-gray-800 hover:text-white transition text-lg flex items-center justify-center gap-2">
           <i class="fas fa-cart-plus"></i> أضف للسلة
         </button>
         <button @click="buyNow()"
-          class="flex-1 bg-black text-white font-black py-4 rounded-2xl hover:opacity-90 transition text-lg flex items-center justify-center gap-2">
+          class="flex-1 bg-black text-white font-black py-4 rounded-2xl hover:bg-gray-800 transition text-lg flex items-center justify-center gap-2">
           <i class="fas fa-bolt"></i> اشتري الآن
         </button>
       </div>
 
       <!-- Trust badges -->
-      <div class="flex gap-4 mt-6 text-xs text-gray-500 flex-wrap">
+        <div class="flex gap-4 mt-6 text-xs text-gray-500 flex-wrap">
         <span><i class="fas fa-truck text-black ml-1"></i>شحن سريع</span>
         <span><i class="fas fa-shield-alt text-black ml-1"></i>جودة مضمونة</span>
         <span><i class="fas fa-undo text-black ml-1"></i>استبدال 14 يوم</span>
@@ -157,14 +159,14 @@
     <div class="text-center py-24 text-gray-400">
       <i class="fas fa-box-open text-6xl mb-4 block text-gray-200"></i>
       <p class="text-xl font-bold">المنتج غير موجود</p>
-      <a href="index.html" class="mt-4 inline-block bg-black text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition">العودة للمتجر</a>
+      <a href="index.html" class="mt-4 inline-block bg-black text-white px-6 py-3 rounded-full font-bold hover:bg-green-500 hover:text-black transition">العودة للمتجر</a>
     </div>
   </template>
 </section>
 
 <!-- TOAST -->
 <div x-show="toast" x-transition class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-black text-white font-black px-6 py-3 rounded-full shadow-xl z-50 text-sm">
-  ✅ زي الفل.. المنتج اتضاف للسلة!
+  ✅ تمت الإضافة للسلة!
 </div>
 
 <script>
@@ -175,6 +177,7 @@ function productPage() {
     selectedSize: '',
     selectedColor: '',
     sizeError: false,
+    colorError: false,
     toast: false,
     cartCount: 0,
     sizes: [38,39,40,41,42,43,44,45],
@@ -182,45 +185,24 @@ function productPage() {
     activeImage: '',
     allImages: [],
 
-    async init() {
+    init() {
       try { this.product = JSON.parse(localStorage.getItem('kadry_product') || '{}'); } catch {}
-
-      // If no product in localStorage, try to load by ?id=PRODUCT_ID from API
-      if ((!this.product || !this.product.id) && window.location.search){
-        try{
-          const params=new URLSearchParams(window.location.search);
-          const id=params.get('id');
-          if(id){
-            const res=await fetch(`/api/products/${id}`);
-            if(res.ok){
-              const jd=await res.json();
-              if(jd && jd.product){
-                this.product=jd.product;
-                // cache so navigating back uses same object
-                try{localStorage.setItem('kadry_product',JSON.stringify(this.product));}catch(e){}
-              }
-            }
-          }
-        }catch(e){/* ignore fetch errors */}
-      }
 
       if (Array.isArray(this.product.sizes) && this.product.sizes.length)
         this.sizes = this.product.sizes;
       if (Array.isArray(this.product.colors) && this.product.colors.length)
         this.colors = this.product.colors;
 
-      // Build image list from gallery + main image
       const gallery = Array.isArray(this.product.gallery) ? this.product.gallery.filter(Boolean) : [];
       const mainImg = this.product.image_url || null;
 
-      // Build unique ordered list: main image first, then others
       const seen = new Set();
       const imgs = [];
       if (mainImg) { imgs.push(mainImg); seen.add(mainImg); }
       gallery.forEach(u => { if (u && !seen.has(u)) { imgs.push(u); seen.add(u); } });
 
       this.allImages = imgs;
-      this.activeImage = imgs[0] || 'https://placehold.co/600x500/111/000000?text=KADRY';
+      this.activeImage = imgs[0] || 'https://placehold.co/600x500/111/000000?text=K';
 
       this.cartCount = this.getCart().length;
     },
@@ -242,22 +224,29 @@ function productPage() {
     },
 
     addToCart() {
-      if (!this.selectedSize) { this.sizeError=true; return; }
-      this.sizeError = false;
+      // التحقق من اختيار المقاس واللون
+      this.sizeError = !this.selectedSize;
+      this.colorError = (this.colors.length > 0) ? !this.selectedColor : false;
+
+      if (this.sizeError || this.colorError) return false;
+
       const cart = this.getCart();
       const key = this.product.id+'_'+this.selectedSize+'_'+this.selectedColor;
       const idx = cart.findIndex(i=>i._key===key);
       const item = {...this.product, qty:this.qty, size:this.selectedSize, color:this.selectedColor, _key:key, finalPrice:this.calcPrice()};
+      
       if(idx>-1) cart[idx].qty += this.qty;
       else cart.push(item);
+      
       localStorage.setItem('kadry_cart', JSON.stringify(cart));
       this.cartCount = cart.length;
       this.toast=true; setTimeout(()=>this.toast=false,2500);
+      return true;
     },
 
     buyNow() {
-      this.addToCart();
-      if(this.selectedSize) window.location.href='cart.html';
+      const success = this.addToCart();
+      if(success) window.location.href='cart.html';
     }
   }
 }

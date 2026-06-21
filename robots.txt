@@ -9,7 +9,7 @@ Disallow: /.vercel/
 Disallow: /admin.html
 Disallow: /maintenance.html
 Disallow: /success.html
-Sitemap: https://kadry-store.vercel.app/sitemap.xml
+Sitemap: https://kadry1.com/sitemap.xml
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 0

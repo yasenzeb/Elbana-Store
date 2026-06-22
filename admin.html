@@ -852,11 +852,11 @@ function renderReviews(){
   container.innerHTML=`<div class="reviews-grid">${allReviews.map(r=>`
     <div class="review-admin-card">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-        <div class="review-avatar">${r.name.charAt(0)}</div>
-        <div><div class="reviewer-name">${r.name}</div><div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div></div>
+        <div class="review-avatar">${htmlEsc(r.name.charAt(0))}</div>
+        <div><div class="reviewer-name">${htmlEsc(r.name)}</div><div class="stars">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div></div>
       </div>
-      <p class="review-text">"${r.text}"</p>
-      <div class="review-actions"><button class="btn btn-red btn-sm" onclick="openDeleteRevModal('${r.id}')"><i class="fas fa-trash"></i> حذف</button></div>
+      <p class="review-text">"${htmlEsc(r.text)}"</p>
+      <div class="review-actions"><button class="btn btn-red btn-sm" onclick="openDeleteRevModal('${htmlEsc(r.id)}')"><i class="fas fa-trash"></i> حذف</button></div>
     </div>`).join('')}</div>`;
 }
 async function submitAddReview(){
@@ -975,6 +975,8 @@ function discountLabel(p){
 }
 
 function esc(s){return String(s).replace(/`/g,'\\`').replace(/\$/g,'\\$');}
+/* HTML-safe escaping for untrusted data injected via innerHTML */
+function htmlEsc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');}
 
 /* ══ SIZES / COLORS ══ */
 function parseSizes(str){return(str||'').split(',').map(s=>parseInt(s.trim())).filter(n=>!isNaN(n));}

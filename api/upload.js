@@ -2,18 +2,27 @@ export const config = {
   api: { bodyParser: { sizeLimit: '10mb' } }
 };
 
-export default async function handler(req, res) {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(204).end();
-  }
+const ALLOWED_ORIGIN = 'https://kadry1.com';
 
-  res.setHeader('Access-Control-Allow-Origin', '*');
+function requireAdmin(req) {
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+  if (!ADMIN_PASSWORD) return false;
+  return req.headers['x-admin-password'] === ADMIN_PASSWORD;
+}
+
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,x-admin-password');
+
+  if (req.method === 'OPTIONS') return res.status(204).end();
 
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method not allowed' });
+  }
+
+  if (!requireAdmin(req)) {
+    return res.status(403).json({ success: false, error: 'غير مصرح.' });
   }
 
   try {

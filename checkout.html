@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none'"/>
 <title>KADRY Store - إتمام الطلب</title>
 <meta name="robots" content="noindex, nofollow"/>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet"/>
@@ -488,12 +491,21 @@ function checkoutPage() {
       return SHIPPING_RATES[this.form.gov] || 0;
     },
 
-    /* ── Validate ── */
+    /* ── Validate & Sanitize Input ── */
+    sanitizeInput(str) {
+      if (typeof str !== 'string') return '';
+      return str.trim().replace(/[<>\"']/g, '').substring(0, 200);
+    },
+    
+    validatePhoneNumber(phone) {
+      return /^(01|002201|[+]201)[0-9]{9}$/.test(phone.replace(/\s+/g, ''));
+    },
+
     validate() {
-      this.errors.name    = !this.form.name.trim();
-      this.errors.phone   = !this.form.phone.trim();
+      this.errors.name    = !this.form.name.trim() || this.form.name.length > 100;
+      this.errors.phone   = !this.form.phone.trim() || !this.validatePhoneNumber(this.form.phone);
       this.errors.gov     = !this.form.gov;
-      this.errors.address = !this.form.address.trim();
+      this.errors.address = !this.form.address.trim() || this.form.address.length > 300;
       return !Object.values(this.errors).some(Boolean);
     },
 
@@ -574,12 +586,12 @@ function checkoutPage() {
 
       try {
         const result = await placeOrder({
-          customerName:    this.form.name.trim(),
-          customerPhone:   this.form.phone.trim(),
+          customerName:    this.sanitizeInput(this.form.name),
+          customerPhone:   this.form.phone.trim().replace(/\s+/g, ''),
           governorate:     this.form.gov,
-          address:         this.form.address.trim(),
-          notes:           this.form.notes.trim() || '',
-          paymentMethod:   this.form.payment,
+          address:         this.sanitizeInput(this.form.address),
+          notes:           this.sanitizeInput(this.form.notes),
+          paymentMethod:   ['cod', 'transfer'].includes(this.form.payment) ? this.form.payment : 'cod',
           items:           structuredItems,
           paymentProofUrl: this.paymentProof || null,
         });

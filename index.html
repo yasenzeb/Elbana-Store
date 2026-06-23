@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none'"/>
 
 <title>كادري ستور - Kadry Store | أفضل متجر أحذية وكوتشيات رجالي في مصر</title>
 <meta name="description" content="كادري ستور: مكان كل الناس لأحدث صيحات الأحذية وكوتشيات رجالي، سليبرز، وأحذية رياضية. تشكيلة مميزة ومبتكرة بأعلى جودة وأفضل سعر في مصر مع شحن سريع لجميع المحافظات. اطلب الآن!"/>
@@ -243,6 +242,7 @@ Kadry Men Shoes Deyarb Negm
 <script src="https://cdn.tailwindcss.com"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <style>
+[x-cloak]{display:none !important;}
 *{font-family:'Cairo',sans-serif;box-sizing:border-box;}
 html,body{overflow-x:hidden;width:100%;}
 
@@ -815,7 +815,7 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
 <a href="https://wa.me/77014738052" target="_blank" aria-label="تواصل معنا عبر واتساب" class="wa-btn"><i class="fab fa-whatsapp"></i></a>
 
 <!-- TOAST -->
-<div x-show="toast" x-transition class="toast-popup"><i class="fas fa-check-circle"></i> تمت الإضافة للسلة!</div>
+<div x-show="toast" x-transition x-cloak class="toast-popup"><i class="fas fa-check-circle"></i> تمت الإضافة للسلة!</div>
 
 <style>.prod-card:hover .hover-reveal{opacity:1!important;}</style>
 

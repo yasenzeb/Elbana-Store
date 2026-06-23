@@ -126,7 +126,7 @@
 اسعار الكوتشيات الاوريجينال في ديرب نجم
 عروض المحلات في ديرب نجم احذية
 خصومات محلات جزم ديرب نجم
-كوتشيات شبابي خفيفة ومريحة ديرب نجم
+كوتشيات شبابي خفيفة ومري��ة ديرب نجم
 احذية رجالي طبية مريحة ديرب نجم
 كوتشيات تريندات تيك توك ديرب نجم
 كوتشيات تريند انستجرام ديرب نجم
@@ -811,24 +811,6 @@ footer{background:#ffffff;color:#000000;border-top:1px solid var(--border);}
 </div>
 
 <!-- SIZE PICKER MODAL -->
-<div x-show="sizePickerOpen" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[110] flex items-center justify-center p-4" x-transition.opacity x-cloak>
-  <div class="bg-white w-full max-w-sm p-8 relative" @click.stop>
-    <h3 class="font-black text-lg mb-2" x-text="selectedProd?.name"></h3>
-    <p class="text-sm text-muted mb-6">يرجى اختيار المقاس المطلوب للمتابعة</p>
-    <div class="grid grid-cols-4 gap-2 mb-8">
-      <template x-for="size in [37,38,39,40,41,42,43,44,45]">
-        <button @click="selectedSize=size"
-                :class="selectedSize===size ? 'bg-black text-white border-black' : 'border-gray-200 text-gray-400'"
-                class="h-12 border-2 font-bold transition-all hover:border-black flex items-center justify-center" x-text="size"></button>
-      </template>
-    </div>
-    <div class="flex gap-3">
-      <button @click="sizePickerOpen=false" class="hero-cta-sec flex-1 justify-center">إلغاء</button>
-      <button @click="confirmAddToCart()" class="hero-cta-main flex-1 justify-center">تأكيد</button>
-    </div>
-  </div>
-</div>
-
 <!-- WHATSAPP -->
 <a href="https://wa.me/77014738052" target="_blank" aria-label="تواصل معنا عبر واتساب" class="wa-btn"><i class="fab fa-whatsapp"></i></a>
 
@@ -848,7 +830,7 @@ function store(){
   return{
     products:[],categories:[],reviews:[],activeFilter:'',searchQuery:'',loadingProds:true,loadingCats:true,
     mobileMenu:false,cartCount:0,toast:false,cartOpen:false,cart:[],
-    sizePickerOpen:false,selectedProd:null,selectedSize:null,
+
     get cartTotal(){ return this.cart.reduce((sum, i) => sum + (this.calcPrice(i) * (i.qty || 1)), 0); },
     async init(){
       this.cart = this.getCart();
@@ -901,33 +883,7 @@ function store(){
     filterByCategory(slug){this.activeFilter=slug;document.getElementById('products').scrollIntoView({behavior:'smooth'});},
     goToProduct(p){localStorage.setItem('kadry_product',JSON.stringify(p));window.location.href='product.html';},
     getCart(){try{return JSON.parse(localStorage.getItem('kadry_cart')||'[]');}catch{return[];}},
-    openSizePicker(p){
-      this.selectedProd = p;
-      this.selectedSize = null;
-      this.sizePickerOpen = true;
-    },
-    confirmAddToCart(){
-      if(!this.selectedSize) { alert('من فضلك اختر المقاس أولاً'); return; }
-      const p = this.selectedProd;
-      const itemKey = `${p.id}-${this.selectedSize}`;
-      const idx = this.cart.findIndex(i => i._key === itemKey);
 
-      if(idx > -1) {
-        this.cart[idx].qty++;
-      } else {
-        this.cart.push({
-          ...p,
-          _key: itemKey,
-          size: this.selectedSize,
-          qty: 1,
-          finalPrice: this.calcPrice(p)
-        });
-      }
-      this.saveCart();
-      this.sizePickerOpen = false;
-      this.toast = true;
-      setTimeout(() => this.toast = false, 2500);
-    },
     removeFromCart(key){ this.cart = this.cart.filter(i => i._key !== key); this.saveCart(); },
     // ⚠️ ملاحظة أمنية: يتم  finalPrice في localStorage لعرضه فقط في السلة.
     // لا يجب الاعتماد على أي سعر/خصم/إجمالي  من localStorage أو المتصفح كمصدر موثوق للدفع الفعلي،
